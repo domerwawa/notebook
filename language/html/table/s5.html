@@ -1,0 +1,178 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>制作一个简单的表格,表格边界里的不同处,单元格混排,调整单元格中的空白,给表格或单元格加背景图片</title>
+
+<style>
+<!--
+body{ font-family:"宋体";font-size:9pt}
+a{ text-decoration:underline;color:#333399}
+a:hover{ text-decoration:none;color:#FF0000}
+a.red:hover{ font-family:"宋体";color:#660000}
+a.red{ font-family:"宋体";color:#FF0000}
+a.red:link{ font-family:"宋体";color:#FF0000}
+.p10{ font-family:"宋体";font-size:14.8px}
+input{ font-family:"宋体":font-size:9pt}
+td{ font-size:9pt;font-family:"宋体"}
+#myid{ font-family:"宋体";font-size:24.8px}
+span.sc-ex{ font-variant:small-caps}
+div.Abstract{ text-align:center}
+-->
+</style>
+
+</head>
+
+<body>
+
+<!--制作一个简单的表格-->
+<h4>一行一单元格</h4>
+<table border="1">
+<tr>
+	<td>单元格</td>
+</tr>
+</table>
+<h4>一行三单元格：</h4>
+<table border="1">
+<tr>
+	<td>第一格</td>
+	<td>第二格</td>
+	<td>第三格</td>
+</tr>
+</table>
+<h4>两行三单元格：</h4>
+<table border="1">
+<tr>
+	<td>第一行第一格</td>
+	<td>第一行第二格</td>
+	<td>第一行第三格</td>
+</tr>
+<tr>
+	<td>第二行第一格</td>
+	<td>第二行第二格</td>
+	<td>第二行第三格</td>
+</tr>
+
+</table>
+
+<!--表格边界里的不同处-->
+<h4>普通的边界</h4>
+<table border="1">
+<tr>
+	<td>第一行</td>
+	<td>材料</td>
+</tr>
+<tr>
+	<td>第二行</td>
+	<td>用途</td>
+</tr>
+</table>
+<h4>加粗的边界</h4>
+<table border="8">
+<tr>
+	<td>第一行</td>
+	<td>材料</td>
+</tr>
+<tr>
+	<td>第二行</td>
+	<td>用途</td>
+</tr>
+</table>
+<h4>没有边框的表格</h4>
+<table border="0">
+<tr>
+	<td>语文</td>
+	<td>数学</td>
+	<td>英语</td>
+</tr>
+<tr>
+	<td>美术</td>
+	<td>体育</td>
+	<td>化学</td>
+</tr>
+</table>
+
+<!--单元格混排-->
+<table border>
+<tr>
+	<td>普通单元格</td>
+	<td colspan=2>占据两列</td>
+</tr>
+<tr>
+	<td rowspan=3 colspan=2>占据三行两列</td>
+	<td>普通单元格</td>
+</tr>
+<tr>
+	<td></td>
+</tr>
+<tr>
+	<td>上面是空白单元格</td>
+</tr>
+<tr>
+	<td></td>
+	<td>左边是空白单元格</td>
+	<td>普通单元格</td>
+</tr>
+</table>
+
+<!--调整单元格中的空白-->
+
+<h4>不加单元格填充:</h4>
+<table border="1">
+<tr>
+	<td>First</td>
+	<td>Row</td>
+</tr>
+<tr>
+	<td>Second</td>
+	<td>Row</td>
+</tr>
+</table>
+<h4>单元格填充:</h4>
+<table border="1" cellpadding="10">
+<tr>
+	<td>First</td>
+	<td>Row</td>
+</tr>
+<tr>
+	<td>Second</td>
+	<td>Row</td>
+</tr>
+</table>
+<h4>单元格空白:</h4>
+<table border="1" cellspacing="10">
+<tr>
+	<td>First</td>
+	<td>Row</td>
+</tr>
+<tr>
+	<td>Second</td>
+	<td>Row</td>
+</tr>
+</table>
+
+<!--给表格或单元格加背景图片-->
+<h4>加一幅背景图片</h4>
+<table border=1 background="../begin/sun.bmp">
+<tr>
+	<td bgcolor="yellow">First</td>
+	<td>Row</td>
+</tr>
+<tr>
+	<td>Second</td>
+	<td>Row</td>
+</tr>
+</table>
+<h4>单元格单独加背景图片</h4>
+<table border=1>
+<tr>
+	<td>First</td>
+	<td>Row</td>
+</tr>
+<tr>
+	<td  background="../begin/sun.bmp">Second</td>
+	<td>Row</td>
+</tr>
+</table>
+
+</body>
+</html>

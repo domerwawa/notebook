@@ -1,0 +1,247 @@
+      ******************************************************************
+      *$Header: $
+      ******************************************************************
+      *
+      * システムＩＤ   : TEST-ADAMS
+      * システム名称   : TEST-ADAMS
+      * プログラム名称 : TEST-ADAMS
+      * 処理概要       : TEST-ADAMS
+      * 参照ＤＢ       : 
+      * 引数           : 
+      *     改訂履歴
+      *     年月日     区分  所属       担当者  内容
+      *     ---------- ----  ---------  ------  ------------------------
+      *     20061103   新規  SCS                新規作成
+      ******************************************************************
+      ******************************************************************
+       IDENTIFICATION         DIVISION.
+       PROGRAM-ID.    TEST-ADAMS.
+       AUTHOR.        adams.
+       DATE-WRITTEN.  06-11-03.
+       DATE-COMPILED.
+      ******************************************************************
+      *
+      *                 環  境  部
+      *
+      ******************************************************************
+       ENVIRONMENT            DIVISION.
+       CONFIGURATION          SECTION.
+       SOURCE-COMPUTER.       L1000V.
+      *SOURCE-COMPUTER.       L1000V   WITH DEBUGGING MODE.
+       OBJECT-COMPUTER.       L1000V.
+       INPUT-OUTPUT           SECTION.
+           FILE-CONTROL.
+             SELECT  IN-TEXT  ASSIGN  TO  INFILE
+           FILE STATUS         IS  FILE-STATUS.
+      ******************************************************************
+      *
+      *                 デ  ー  タ  部
+      *
+      ******************************************************************
+       DATA                   DIVISION.
+       FILE                   SECTION.
+       FD IN-TEXT  LABEL      RECORD    STANDARD
+                   DATA RECORD IS IN-TEXT-REC.
+       01 IN-TEXT-REC.
+         05  FILLER                PIC  X(20361).
+       WORKING-STORAGE             SECTION.
+      *----------  ＳＱＬ通信領域
+           EXEC  SQL INCLUDE  SQLCA               END-EXEC.
+           EXEC  SQL  BEGIN   DECLARE  SECTION    END-EXEC.
+       01  ORA-WORKING-ITEMS.
+      *----------  ORACLE接続メーザ領∵
+         05  HST-ORA-USER          PIC  X(40).
+      *----------  ＳＱＬ文
+         05  SQL1                PIC  X(8000)
+           VALUE  "DELETE FROM TOSIFA01_1001".
+         05  SQL2                PIC  X(8000)
+           VALUE  "DELETE FROM TOSIFA01_1001".
+         05  SQL3                PIC  X(8000)
+           VALUE  "DELETE FROM TOSIFA01_1001".
+         05  SQL4                PIC  X(8000)
+           VALUE  "DELETE FROM TOSIFA01_1001".
+         05  SQL5                PIC  X(8000)
+           VALUE  "DELETE FROM TOSIFA01_1001".
+           EXEC  SQL  END     DECLARE  SECTION    END-EXEC.
+      ******************************************************************
+      *                コンスタント  エリア
+      ******************************************************************
+       01  CONSTANT-AREA.
+      *----< リターンコード >----*
+         05  CNS-ORA-USER         PIC  X(22)
+                         VALUE 'UTC405/UTC405@UTSTAR'.
+         05  CNS-DIR                PIC  X(40)
+                       VALUE "/home/apl/debug/FA/MAKE/src/bt/sub/input".
+         05  CNS-FILE-NORMAL         PIC  X(02)  VALUE "00".
+         05  CNS-FILE-EOF            PIC  X(02)  VALUE "10".
+         05  CNS-FILE-OPEN           PIC  X(04)  VALUE "OPEN".
+         05  CNS-FILE-READ           PIC  X(04)  VALUE "READ".
+         05  CNS-1                   PIC  9(01)  VALUE  1.
+         05  CNS-RESULT-NUM          PIC  9(02)  VALUE  04.
+      ******************************************************************
+      *                フラグエリア
+      ******************************************************************
+       01  FILE-AREA.
+         05  INFILE                PIC  X(251).
+         05  FILE-STATUS           PIC  X(02).
+       01  FLAG-AREA.
+      *----< ファイルを開く判定フラグ >----*
+         05  FLG-FILE-OPEN         PIC  9(02).
+      ******************************************************************
+      *                ワ－クエリア
+      ******************************************************************
+       01  WORK-AREA.
+         05 WK-COUNT               PIC  9(02).
+      ******************************************************************
+      *                サブプログラム  パラメ－タ  エリア
+      ******************************************************************     
+      ******************************************************************
+      *                 連絡節
+      ******************************************************************
+      *LINKAGE                SECTION.
+      *
+      ******************************************************************
+      *
+      *        PROCEDURE      DIVISION
+      *
+      ******************************************************************
+       PROCEDURE              DIVISION.
+      ******************************************************************
+       TEST-ADAMS-RTN      SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "***  TEST-ADAMS 処理  START  ***"
+      *-----------------------------------------------------------------
+      *----------  初期処理
+           PERFORM  INIT-RTN
+      *----------  メイン処理
+           PERFORM  MAIN-RTN
+      *----------  終了処理
+           PERFORM  END-RTN
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "***  TSSIFA01処理  END  ***".
+      *-----------------------------------------------------------------
+           CONTINUE.
+       TEST-ADAMS-EXT.
+           GOBACK.
+      ******************************************************************
+      *                 初期処理
+      ******************************************************************
+       INIT-RTN               SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "***  INIT-RTN  START  ***"
+      *-----------------------------------------------------------------
+           EXEC SQL
+               WHENEVER SQLERROR CONTINUE
+           END-EXEC.
+           MOVE    CNS-ORA-USER        TO  HST-ORA-USER.
+           EXEC SQL
+               CONNECT :HST-ORA-USER
+           END-EXEC.
+      D    DISPLAY  "SQLCODE="SQLCODE.
+      *----------  初期化
+           INITIALIZE  WORK-AREA
+                       IN-TEXT-REC
+           CONTINUE.
+       INIT-EXT.
+           EXIT.
+      ******************************************************************
+      *                 メイン処理
+      ******************************************************************
+       MAIN-RTN               SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  '*****  MAIN-RTN  START  *****'.
+      *-----------------------------------------------------------------
+           MOVE 01  TO  WK-COUNT
+           PERFORM  UNTIL WK-COUNT>CNS-RESULT-NUM
+             DISPLAY  "RESULT is:"WK-COUNT
+             EVALUATE  WK-COUNT
+               WHEN  01
+                 EXEC  SQL
+                   DELETE FROM TOSIFA01_1001
+                 END-EXEC
+                 STRING  CNS-DIR,WK-COUNT  DELIMITED BY SPACE
+                                    INTO INFILE
+                 DISPLAY INFILE
+                 PERFORM     FILE-OPEN-RTN
+                 READ  IN-TEXT
+                   AT  END    PERFORM  INFILE-CLOSE-RTN
+                 END-READ
+      *          MOVE  IN-TEXT-REC   TO   WK-INPUT
+               WHEN  02
+                 CONTINUE
+               WHEN  03
+                 CONTINUE
+               WHEN  04
+                 CONTINUE
+               WHEN  OTHER
+                 CONTINUE
+             END-EVALUATE
+             COMPUTE  WK-COUNT = WK-COUNT + 1
+           END-PERFORM
+      *----------  CALL SUB
+      *    PERFORM  sub
+      *    IF  RTN-CD  
+      *        OF PARM-SFAC1017-RTNPKG(COUNTER  OF PARM-SFAC1017-RTNPKG)
+      *      NOT= '000'  THEN
+      *      EXEC SQL
+      *        ROLLBACK  RELEASE
+      *      END-EXEC.         
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  '*****  MAIN-RTN  END  *****'.
+      *-----------------------------------------------------------------
+           CONTINUE.
+       MAIN-EXT.
+           EXIT.
+      ******************************************************************
+      *                 終了処理
+      ******************************************************************
+       END-RTN                SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  '*****  END-RTN  START  *****'.
+      *-----------------------------------------------------------------
+      *----------  Oracle 接続切断
+            EXEC SQL
+                COMMIT RELEASE
+            END-EXEC.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  '*****  END-RTN  END  *****'.
+      *-----------------------------------------------------------------
+           CONTINUE.
+       END-EXT.
+           EXIT.
+      ******************************************************************
+      *       FILE-OPEN-RTN
+      ******************************************************************
+       FILE-OPEN-RTN       SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "*****  FILE-OPEN-RTN  START  *****".
+      *-----------------------------------------------------------------
+           OPEN    INPUT   IN-TEXT
+           IF  FILE-STATUS  NOT =  CNS-FILE-NORMAL  THEN
+               DISPLAY "FILE OPEN ERROR !"
+               STOP  RUN
+           END-IF.
+           MOVE    CNS-1    TO    FLG-FILE-OPEN.
+      *-------------------<DEBUG>---------------------------------------*
+      D    DISPLAY  "*** FILE-STATUS ***",     FILE-STATUS.
+      D    DISPLAY  "*****  FILE-OPEN-RTN  END  *****".
+      *------------------------------------------------------------------
+       FILE-OPEN-EXT.
+           EXIT.
+      ******************************************************************
+      *    INFILE-CLOSE-RTN
+      ******************************************************************
+       INFILE-CLOSE-RTN       SECTION.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "*** INFILE-CLOSE-RTN START ***".
+      *-----------------------------------------------------------------
+           IF  FLG-FILE-OPEN = CNS-1
+           THEN
+               CLOSE        IN-TEXT
+               INITIALIZE   FLG-FILE-OPEN
+           END-IF.
+      *-------------------<DEBUG>---------------------------------------
+      D    DISPLAY  "*** INFILE-CLOSE-RTN EXIT ***".
+      *-----------------------------------------------------------------
+       INFILE-CLOSE-EXT.
+           EXIT.

@@ -1,0 +1,11 @@
+外键
+CREATE TABLE `数据库名`.`表名` (
+  `字段1`,
+  `字段2`,
+  PRIMARY KEY(字段1),
+      CONSTRAINT `FK_表名_1` FOREIGN KEY `FK_表名_1` (`字段2`)
+        REFERENCES `表名` (`字段1`) ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+    注:对自身的外键哦ON UPDATE CASCADE, ON UPDATE SET NULL,不起作用
+

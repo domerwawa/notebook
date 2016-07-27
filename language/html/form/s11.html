@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>录入留言内容,选择应聘岗位/地点,上传文件</title>
+</head>
+<body bgcolor="#ffccff">
+
+<!--录入留言内容-->
+
+<form name="postit" ACTION="POST.JSP" method="post">
+<table border="0" width="90%" cellspacing="3" align="center">
+	<tr>
+		<td width="100%">请输入留言标题</td>
+	</tr>
+	<tr>
+		<td width="100%"><INPUT TYPE=text NAME="title" size="53"></td>
+	</tr>
+	<tr>
+		<td width="100%">请输入您的EMAIL地址</td>
+	</tr>
+	<tr>
+		<td width="100%"><INPUT TYPE="text" NAME="title1" size="53" value="abd@hotmail.com"></td>
+	</tr>
+	<tr>
+		<td width="100%">请输入留言内容</td>
+	</tr>
+	<tr>
+		<td width="100%"><TEXTAREA NAME="content" rows="9" cols="60" wrap="virtual" style="font-size:9pt"></TEXTAREA></td>
+	</tr>
+	<tr>
+		<td><INPUT name="button1" type=button value="普通按钮"><INPUT name="reset" type=reset value="清空按钮"><INPUT name="submit" type=submit value="提交按钮"></td>
+	</tr>
+</table>	
+
+<!--选择应聘岗位/地点-->
+
+</form>
+<form name="postother" ACTION="POSTOTHER.JSP" method="post">
+<table border="0" width="90%" cellspacing="3" align="center">
+	<tr>
+		<td width="100%">求职类型</td>
+		
+	</tr>
+	<tr>
+		<td width="100%">
+			<INPUT TYPE=radio NAME="category" value="全职" checked>全职
+			<INPUT TYPE=radio NAME="category" value="兼职" checked>兼职
+		</td>
+	</tr>
+	<tr>
+		<td width="100%">月薪
+			<input maxLengyth="6" name="pay" size="6" value="0">元以上
+			<input name="House" type=checkbox value="提供住房">要求提供住房
+		</td>
+		
+	</tr>
+	<tr>
+		<td><INPUT name="submit1" type=submit value="提交按钮"></td>
+	</tr>
+</table>
+</form>
+
+<!--上传文件-->
+
+<form name="upload" ACTION="upload.JSP" method="post">
+<table border="0" width="90%" cellspacing="3" align="center">
+	<tr>
+		<td width="100%">请选择要上传的文件：<td>
+	</tr>
+	<tr>
+		<td width="100%"><input id=file1 name="file1" type=file><td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

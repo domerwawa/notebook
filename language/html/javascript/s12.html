@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>随机显示信息,下拉菜单导航,频道方式打开窗口,倒计时载入页面</title>
+</head>
+
+<!--随机显示信息-->
+
+<body bgcolor="#ffccff" onLoad="window.setTimeout('getSecs()',1)">
+	<script language="JavaScript">
+		<!-- Hide
+		var a=Math.random()+"";
+		var rand1=a.charAt(5);
+		quotes=new Array;
+		quotes[1]='随机文本信息一';
+		quotes[2]='随机文本信息二';
+		quotes[3]='随机文本信息三';
+		quotes[4]='随机文本信息四';
+		quotes[5]='随机文本信息五';
+		quotes[6]='随机文本信息六';
+		quotes[7]='随机文本信息七';
+		quotes[8]='随机文本信息八';
+		quotes[9]='随机文本信息九';
+		quotes[0]='随机文本信息十';
+		var quote=quotes[rand1];
+		document.write("<font color=red>"+quote+"</font>")
+		//-->
+	</script>
+	
+<!--下拉菜单导航-->
+
+	<script language="JavaScript">
+		<!--//
+		function jump_bbs(){
+			var menuid=document.frmJump.menu.selectedIndex;
+			if(document.frmJump.menu.options[menuid].value==0){
+				alert("请选择你要去的论坛!");
+				return false;
+			}else{
+				parent.window.location="http://www.adamshomepage.jsp?bid="+document.frmJump.menu.options[menuid].value+"&pageNo=1"
+				return true;
+			}
+			alert("请选择你要去的论坛!");
+			
+		}
+		//-->
+	</script>
+	<table border="0" width="21%" cellspacing="1" cellpadding="0" align="center">
+		<tr><form name="frmJump">
+				<td height="19" width="40%" align="center">论坛导航：</td>
+				<td width="60%" align="center">
+					<select name="menu" style="font-size:9pt;background:FFEAA2" onchange="jump_bbs()">
+						<option value="0">◆电脑技术
+						<option value="3">―ASP
+						<option value="4">―潮流硬件
+						<option value="9">―网页制作
+						<option value="20">―PHP
+						<option value="25">―数据库
+						<option value="32">―网络安全
+						<option value="11" selected>―NT/2000
+						<option value="12">―LINUX
+						<option value="13">―常用软件
+					</select>
+				</td>
+			</form>
+		</tr>
+	</table>
+	
+<!--频道方式打开窗口-->
+
+	<script language="javascript">
+		<!--
+		function channel(){
+			window.open("63-1.htm","","channelmode,scrollbars")
+		}
+		//-->
+	</script>
+	<form>
+		<input type="button" onClick="channel()" value="打开窗口" name="button">
+	</form>
+	
+<!--倒计时载入页面-->
+
+	<script language="javascript">
+		startday=new Date();
+		clockStart=startday.getTime();
+		function initStopwatch(){
+			var myTime=new Date();
+			var timeNow=myTime.getTime();
+			var timeDiff=timeNow-clockStart;
+			this.diffSecs=timeDiff/1000;
+			return(this.diffSecs);
+		}
+		function getSecs(){
+			var mySecs=initStopwatch();
+			var mySecs1=""+mySecs;
+			mySecs1=mySecs1.substring(0,mySecs1.indexOf("."))+" 秒.";
+			document.form1.timespent.value=mySecs1;
+			window.setTimeout('getSecs()',1000);
+		}
+	</script>
+	<center><font size="30">计时.</center>
+	<form name=form1><center><input size=9 name=timespent></center></form>
+</body>
+</html>

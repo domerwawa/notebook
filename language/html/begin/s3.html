@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>给背景加颜色,显示通讯地址,删除插入新文本,文字链接,页内链接,发送邮件,简单表单,简单的列表,下拉列表,显示会动的图片,图片的位置及尺寸的控制</title>
+
+<style>
+<!--
+body{ font-family:"宋体";font-size:9pt}
+a{ text-decoration:underline;color:#333399}
+a:hover{ text-decoration:none;color:#FF0000}
+a.red:hover{ font-family:"宋体";color:#660000}
+a.red{ font-family:"宋体";color:#FF0000}
+a.red:link{ font-family:"宋体";color:#FF0000}
+.p10{ font-family:"宋体";font-size:14.8px}
+input{ font-family:"宋体":font-size:9pt}
+td{ font-size:9pt;font-family:"宋体"}
+-->
+</style>
+
+</head>
+
+<!--给背景加颜色-->
+
+<body bgcolor="#CCFF99" text="#ff0000">
+你将得到一个绿色文字和<font color="#FF0000">红色</font><font color="#000000">黑色</font><font color="#C763F1">紫色</font> 
+
+
+<!--显示通讯地址-->  
+
+<address>
+</address>
+<p>
+白痴<br>
+延安西路100号<br>
+100023上海  
+中国
+</p>
+<a HREF="http://www.google.com">google搜索</a>
+ 
+
+<!--删除插入新文本--> 
+
+<p>
+<del>删除</del>
+<ins>插入</ins>
+</p>
+<ins username="adams" datetime="2009-11-11" title="这个鼠标移山来能显示出来">我们应该少生孩子多种树快致富.</ins>
+
+
+<!--文字链接-->  
+
+<p>
+<a href="./s1.html">链到s1.html</a><br>
+<a href="./s2.html" target="_blank">链到s2.html</a>
+<!-- target="_blank" 在新窗口打开链接-->  
+</p>
+
+
+<!--页内链接-->
+
+<a name="here">here<br>
+<p>
+<a href="#D10">
+go there
+</a>
+</p>
+<p>
+2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>2<br>
+<a name="D10">there</a><br>
+5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>5<br>
+<a href="#here" >go here!</a>
+<a href="s3.html#here" target="_blank">新窗口,go here!</a>  
+</p>
+
+<!--发送邮件-->
+
+<p>
+<a href="mailto:xiaohu@hotmail.com?cc=xiaozhang@163.com&subject=早 &Body=早上好">向xiaohu发邮件(抄送xiaozhoang)</a>
+</p>
+
+<!--简单表单-->
+<form>
+填写用户名:<input type="text" name="UserName"><br>
+填写密码:&nbsp&nbsp<input type ="text" name="Password">
+<br><br>
+我喜欢体育:<input type="checkbox" name="Bike">
+<br>
+我喜欢文学:<input type="checkbox" name="Car">
+<br>
+我喜欢书法:<input type="checkbox" name="Bike">
+<br>
+</form>
+
+<!--简单的列表-->
+<h4>已订产品</h4>
+<ol>
+	<li>20G硬盘</li>
+	<li>40G硬盘</li>
+	<li>80G硬盘</li>
+	<li>120G硬盘</li>
+	<li>250G硬盘</li>
+	<li>500G硬盘</li>
+	<li>1T硬盘</li>
+</ol>
+
+<!--下拉列表-->
+<select name="菜单">
+	<option value="">请选择</option>
+	<option value="麻婆豆腐">麻婆豆腐</option>
+	<option value="回锅肉">回锅肉</option>
+	<option value="水煮鱼">水煮鱼</option>
+</select>
+
+<!--显示会动的图片-->
+<p align=center><img src="sun.bmp"></p>
+<p><img align=left src="dialup.gif"></p>
+<br><br><br><br><br><br>
+
+<!--图片的位置及尺寸的控制-->
+<p>这幅图片<img src="happy.jpg">包含在文字当中.</p>
+
+<p>这幅图片在文字末尾.<img src="happy.jpg"></p>
+
+<p><img src="happy.jpg">这幅图片在文字开始.</p>
+
+<p><img src="happy.jpg" align="left">在一段文字当中插入图片,左</p>
+
+<p><img src="happy.jpg" align="right">在一段文字当中插入图片,右</p>
+
+<p><img src="happy.jpg" width="107" height="98"></p> 
+</body>
+</html>

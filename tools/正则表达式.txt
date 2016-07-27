@@ -1,0 +1,2 @@
+正则表达式工具
+KRegExpEditor		txt2re

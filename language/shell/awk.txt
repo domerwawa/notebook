@@ -1,0 +1,82 @@
+1.sample
+awk'
+	function trim(str){
+		sub(/^[ \t]*/, "", str);
+		sub(/[ \t]*$/, "", str);
+		return sub
+	}
+	BEGIN{
+		#读文件开始做的
+		printf "" > "'$outputfile'";
+		#default is space
+		FS=";"
+	}
+	END{#读文件结尾做的}
+	{
+		#打印文件一整行
+		print $0;
+		#打印一行中第一列
+		print $1;
+		#打印一行中第二列
+		print $2;
+		#NR 执行行数
+		#FNR display file row number, new file start 0
+		#NF 文件列数
+	}'"文件路径"
+
+2.环境变量
+ENVIRON["XXX"]	读环境变量
+system("env XXX=XXX")	设置环境变量
+
+3.内建标量变量
+FILENAME	文件名
+FNR		当前输入文件的记录数
+FS		当前分隔字符（默认为" "）
+NF		当前记录字段数
+OFS		输出字段分割字符（默认为" "）
+ORS		输出记录分割字符（默认为"\n"）
+RS		输入记录分割字符（默认为"\n"）
+
+4.参数
+ARGC	参数个数
+for (k=0; k<ARGC; k++){
+	print "ARGV["k"]=["ARGV[k]"]"
+}
+
+5.例
+awk -F '[ ]' '{print NF ":" $0}'
+ '[ ]'不忽略头尾空格
+
+6.例
+NF==0	选定空记录
+NF>3	x选定三个字段以上的记录
+NF<5	选定1到4条记录
+(FNR==3)&&(FILENAME ~/[.][ch]$/)	于c来源文件中选第3条记录
+$1 ~ /jones/		选定字段1里有"jone"的记录
+/[Xx][Mm][Ll]/		选定含有"xml"的记录
+$0 ~ /[Xx][Mm][Ll]/	同上
+
+7.执行外部命令
+system("XXXXX")
+
+8.用户输入
+getline
+
+9.循环 
+while(XX)
+	XX
+
+do
+	XX
+while(XX)
+
+for(XX;XX;XX)
+	XX
+
+10.条件
+if (XX) XX
+else if (XX) XX
+
+11.awk根据环境变量LANG来出力数据的
+
+

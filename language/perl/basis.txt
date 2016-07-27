@@ -1,0 +1,163 @@
+1.Perl中指定字符编码方式有3种
+#对文本全体指定
+use open IN => ':euc-jp';           #输入用euc-jp
+use open OUT => ':utf-8';           #输出用utf-8
+use open ':encoding (iso-8859-7)';  #全部输入输出用iso-8859-7
+
+#对每个文件进行指定
+open (I1, "<:utf8", "file");
+open (I2, "<file");      #下一行指定
+binmode(I2, ":utf-8");
+
+#以字符串为单位变换
+use Encode;
+$string = Encode::decode("euc-jp", $data);
+
+2.设置环境变量
+$ENV{XXX}="XXX";
+
+3.入力参数
+@ARGV    #入参个数
+$ARGV[0] #第一个入参
+
+4.读文件
+open(INPUT, "<$inputfile") or die "Can't open $inputfile";
+binmode INPUT;  						 #biny模式
+while (<INPUT>){
+	my $line=$_;				#$_表示最近的变量
+	#skip the blank line
+	next if($line eq "");
+	#skip the line with "01XXX"		#跳过01开头的行
+	next if(m/^0\1|/);
+	printf(%s, $line);
+}
+close(INPUT);
+
+5.出力文件
+printf OUTPUT "%10s%5d\n", $XX, $XXX;
+
+6.连接DB
+my $dbh = DBI->connect($dsn, $db2user, $db2pwd) or dir "Can't open connection :$DBI::errstr";
+printf "Connecionis successful!!\n";
+my $stmt="select * from table";
+my $sth=$dbh->prepare($stmt);
+$sth->execute();
+while (my @row=$sth->fetchrow_array){
+	my$XX=$row[0];
+}
+$sth->finish();
+$dbh->disconnect();
+
+6.替换字符串
+$XX=~ s/要替换的/替换的/;
+
+7.切字符串
+substr($XX, 0, 20);
+substr($XX, 20);      #21位到末尾
+
+8.去空格
+sub trim{
+	my @out=@_;
+	for (@out){
+		s/^\s+//;
+		s/\s+$//;
+	}
+	return @out==1?out[0]:@out;
+}
+
+9.perl时间
+localtime();=localtime(time);    当前时间
+time                             时差
+gmtime				 格林威治时间
+
+需要转换的时间
+(my $sec, my $min, my $hour, my $day, my $mon, my $year, my $wday, my $yday, my $isdst)=localtime();
+$year+1900
+$mon+1
+
+不用转换的时间
+use POSIX qw(strftime);
+
+printf strftime("%Y-%m-%d $H:%M:%s\n", localtime());
+my $year=sprintf strftime("%y\n", localtime());
+
+10.切成数组
+@arr=split(/\|/, $line);   以"|"切
+
+11.hash list
+my %myhl=(1=>"aaa", 2=>"bbb", 3="ccc", 4="ddd");
+$myhl{8}="ttt";
+delete $myhl{3};
+foreach $key (sort keys %myhl){
+	$value=$myhl{$key};
+	print "$key=>$value\n";
+	print "$key=>$myhl{$key}\n";
+}
+while ((my $key1, my $value1)=each %myhl){
+	print "$key1=>$value1\n";
+}
+#getkeys
+my @keysarr=keys %myhl;
+foreach $key2 (@keysarr){
+	print ("$key2:$myhl{$key2}\n");
+}
+#getvalues
+my @valuesarr=values %myhl;
+foreach $values2 (@valuesarr){
+	print ("$value2\n");
+}
+#exists
+my $key3=1;
+if (exists($myhl{key})){
+	print "$kye3 is exist\n";
+}else{
+	print "$key3 is not exist\n";
+}
+
+12.ftp
+use Net::FTP;
+my $ftp=Net::FTP->new("hostname",
+		      Time => 30,
+		      Debug => 1)
+	or die "Can't connect: $@\n";
+$ftp->login("user", "password");
+$ftp->cwd("/home/zhouwe");
+$ftp->binary();
+$ftp->get("test.txt");
+$ftp->quit();
+
+13.mail
+use Mail:Mailer
+my $mailer=Mail::Mailer->new("sendmail");
+$mailer->open({From     => "XXX@XX.com",
+		To      => "XXX@XX.com",
+		subject => "XXX"
+		})
+	or die "Can't open: $!\n";
+print $mailer "hello world!!!";
+$mailer->close();
+
+14.perl写log
+my $syslog = "/**/**/**.log";
+open(STDOUT, ">$syslog") or die "Could not open the log";
+
+15.循环目录文件
+my $dir = "/**/**/**";
+my @dirs;	#数组
+opendir(DIR, $dir) or die "Can't open the directory!";
+@dirs=readdir DIR;
+close(DIR);
+my $file;
+foreach $file(@dirs){
+	if($file=~".txt"){
+		open(INPUT, "<$dir/$file") or die "Can't open $dir/$file!";
+		binmode INPUT;
+		while(<INPUT>){
+			...
+		}
+		close(INPUT);
+	}
+}
+
+
+

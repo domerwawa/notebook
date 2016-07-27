@@ -1,0 +1,65 @@
+<project name="***" default="***" basedir=".">
+	<property name="java.src" value="${basedir}/src"/>
+	<property name="java.bin" value="${basedir}/bin"/>
+	<property name="jar.file" value="${basedir}/jar/**.jar"/>
+	<!--
+	指定jdk
+	<property name="javac.binary" value"jdk路径/bin/javac"/>
+	-->
+	<path id="run.libpth">
+		<fileset dir="{basedir}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete file="${jar.file}"/>
+		<delete dir="${java.bin}"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<each message="Compiling Java Source Code"/>
+		<mkdir dir"${java.bin}"/>
+		<javac srcdir="${java.src}" destdir="${java.bin}" encoding="UTF-8">
+			<classpath refid="run.libpath"/>
+		</javac>
+		<!--指定jdk,就要在javac中加 fork="true" executable="${javac.binary}" -->
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${basedir/jar}"/>
+		<jar destfile="${jar.file}" basedir="${java.bin}">
+			<manifest>
+				<attribute name="Built-By" value="ad"/>
+				<attribute name="Manifest-Version" value="1.0"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="svn">
+		<path id="svn.classpath">
+			<fileset dir="**">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svn.classpath"/>
+		<svn username="**" psddeotf="**">
+			<checkout url="**" destPath="**"/>
+		</svn>
+	</target>
+</project>
+
+
+复制文件夹下文件
+<copy todir="**">
+	<fileset dir="**"/>
+</copy>
+
+删除文件夹下文件
+<delete>
+	<fileset dir="***" includes="*.java" />
+</delete>
+删除文件
+<delete file="**"/>
+zip压缩
+<zip destfile="**.zip" basedir="**"/>

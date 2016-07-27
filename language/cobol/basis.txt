@@ -1,0 +1,7 @@
+代码：
+空格替换0
+20  MINASU-HYOKA            PIC  -9(15) BLANK WHEN ZERO.
+变量定义的度
+FUNCTION LENGTH()
+字符转数字
+FUNCTION NUMVAL()

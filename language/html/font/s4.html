@@ -1,0 +1,93 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<title>漂浮在文字上的说明,边框包围的文字,倒序排列文字,文字缩写说明,通过样式表定义字体</title>
+
+<style>
+<!--
+body{ font-family:"宋体";font-size:9pt}
+a{ text-decoration:underline;color:#333399}
+a:hover{ text-decoration:none;color:#FF0000}
+a.red:hover{ font-family:"宋体";color:#660000}
+a.red{ font-family:"宋体";color:#FF0000}
+a.red:link{ font-family:"宋体";color:#FF0000}
+.p10{ font-family:"宋体";font-size:14.8px}
+input{ font-family:"宋体":font-size:9pt}
+td{ font-size:9pt;font-family:"宋体"}
+#myid{ font-family:"宋体";font-size:24.8px}
+span.sc-ex{ font-variant:small-caps}
+div.Abstract{ text-align:center}
+-->
+</style>
+
+</head>
+
+<body>
+
+<!--漂浮在文字上的说明-->
+
+<img src="../begin/happy.jpg" alt="这个在图片上的说明还可以吧!" width="24" height="24">
+<br><br>
+<font size="3" title="怎么样,在这里你可以填写这段文字的说明!">把鼠标放在文字上面看看!</font>
+<br><br>
+<A href="http://www.google.com" title="google搜索!">
+<font size="3">
+<b>google</b>
+</font>
+</A>
+<br><br>
+<A href="http://www.google.com">
+<font size="3"  title="google搜索!">
+<b>google search</b>
+</font>
+</A>
+
+<!--边框包围的文字-->
+
+<br><br><br>
+<fieldset>
+	<font class="p10">边框</font>
+</fieldset>
+<br><br><br>
+<fieldset>
+	<legend>
+		<font color="red">这个效果是不是更好?</font>
+	</legend>
+</fieldset>
+<p>
+<font class="p10">
+	<center>如果不能正常浏览,一定是你浏览器不支持了!</center>
+</font>
+</p>
+<br><br>
+
+<!--倒序排列文字-->
+<bdo dir="rtl">  
+	<font class="p10" color="red"><b>Hello,world</b></font>  
+</bdo>  
+<br><br><br>
+<bdo dir="rtl">
+	<font class="p10" color="red"><b>大家好呀!</b></font>  
+</bdo>  
+<br><br>
+
+<!--文字缩写说明-->
+
+<!--ie不支持-->  
+<abbr title="the Republic of China">CHA</abbr>  
+<br><br><br>
+
+<!--通过样式表定义字体-->
+
+这个字体是通过"body"定义的!  
+<br><br><br>
+<font id="myid"><b>这个字体是通过"myid""定义的!</b></font>
+<br><br><br>
+<p>
+	<span class="sc-ex">This first</span> few words of this paragraph are in small-caps.
+</p>
+<br><br>
+<p>
+	<div class="Abstract">通过div定义文字属性</div>
+</body>
+</html>

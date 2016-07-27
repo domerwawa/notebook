@@ -1,0 +1,2 @@
+命令行启动
+eclipse.exe -vm jdk目录\bin\javaw.exe -data workspace目录

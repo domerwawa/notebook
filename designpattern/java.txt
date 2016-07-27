@@ -1,0 +1,159 @@
+1.Singleton Pattern
+懒汉式
+public class Singleton{
+	// volatile保证了新值能立即同步到主内存， 每次使用前刷新主内存
+	private volatile static Singleton uniqueInstance = null;
+	
+	private String str1;
+	
+	private Singleton(){}
+	
+	public static Singleton getInstance(){
+		if (uniqueInstance == null){
+			synchronized(Singleton.class){
+				if (uniqueInstance == null){
+					uniqueInstance = new Sington();
+				}
+			}
+		}
+		return uniqueInstance;
+	}
+	
+	public void setStr1(String str1){
+		this.str1 = str1;
+	}
+	
+	public String getStr1(){
+		return str1;
+	}
+}
+
+饿汉式
+public class Singleton{
+	private static final Singleton singleton = new Singleton();
+	
+	private String str1;
+	
+	private Singleton(){}
+	
+	public synchronized static Singleton getInstance(){
+		return singleton;
+	}
+	
+	public void setStr1(String str1){
+		this.str1 = str1;
+	}
+	
+	public String getStr1(){
+		return str1;
+	}
+}
+
+比较好的实现
+public class Singleton{
+	private String str1;
+	
+	private Singleton(){}
+	
+	private static class SingletonHolder{
+		private static Singleton instance = new Singleton();
+	}
+	
+	public static Singleton getInstance(){
+		return SingletonHolder.instance;
+	}
+	
+	public void setStr1(String str1){
+		this.str1 = str1;
+	}
+	
+	public String getStr1(){
+		return str1;
+	}
+}
+
+枚举实现
+public enum Singleton{
+	
+	uniqueInstance;
+	
+	private String str1;
+	
+	public void setStr1(String str1){
+		this.str1 = str1;
+	}
+	public String getStr1(){
+		return str1;
+	}
+}
+
+2.Multition Pattern
+可以用ArrayList或HashMap实现
+
+ArrayList--饿汉式（Empty ArrayList get会抛Exception）
+public class Waiter{
+	private static int maxNum = 3;
+	private static int current = 0;
+	private static List<Waiter> waiterList = new ArrayList<Waiter>(maxNum);
+	priavte String name;
+	static{
+		for (int i=0; i<maxNum; i++){
+			waiterList.add(new Waiter("服务员" + (i + 1)));
+		}
+	private Waiter(){}
+	private Waiter(String name){
+		this.name = name;
+	}
+	public static Waiter getInstance(){
+		Random random = new Random();
+		current = random.nextInt(maxNum);
+		return waiterList.get(current);
+	}
+	public void setName(String name){
+		this.name = name;
+	}
+	public String getName(){
+		return this.name;
+	}
+}
+
+
+HashMap--懒汉式（Empty HashMap get不会抛Exception），也可写成饿汉式
+public class Waitress{
+	private final static String DEFAULT_PREKEY = "Key";
+	private static Map<String, Waitress> waitressMap = new HashMap<String, Waitress>();
+	private static int currentNum = 1;
+	private final static int NUM_MAX = 3;
+	private String name;
+	
+	private Waitress(){}
+	private Waitress(String name){
+		this.name = name;
+	}
+	public static Waitress getInstance(){
+		/* 随机存
+		Random random = new Random();
+		currentNum = random.nextInt(NUM_MAX) + 1;
+		*/
+		String key = DEFAULT_PREKEY + currentNum;
+		Waitress waitress = waitressMap.get(key);
+		if (waitress == null){
+			waitress = new Waitress("waitress" + currentNum);
+			waitressMap.put(key, waitress);
+		}
+		//顺序存
+		currentNum++;
+		if (currentNum > NUM_MAX){
+			currentNum = 1;
+		}
+		return waitress;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	public String getName(){
+		return this.name;
+	}
+}
+

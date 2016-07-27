@@ -1,0 +1,187 @@
+1.find . -name "*pco" -type f | xargs grep -i -l '"*ISNUM*'
+
+2.压缩与解压
+tar 归档
+tar -cvf **.tar 目录/文件名
+tar -czf **.tar.gz 目录/文件名
+tar -cjf **.tar.bz2 目录/文件名
+tar -tvf **.tar 察看tar里的文件
+tar -rvf **.tar 要添加的文件或目录
+tar --delete -f **.tar 要删除的文件或目录
+c:create
+f:file
+v:verbose 信息
+j:bz2
+z:gz
+t:list
+r:append file
+--delete delete file from tar
+
+解档tar
+tar -xvf **.tar -C 指定目录
+解档tar.gz
+tar -xzf **.tar.gz -C 指定目录
+解档tar.gz某一个文件
+tar -xzf **.tar.gz file1
+
+gzip 压缩
+gzip -dc **.tar.gz
+c:write output an standard output
+d:解压
+
+gzip -c file > file.gz
+cat file1 file2 | gzip > file.gz (其中一个文件坏不影响其他文件)
+gzip file1 file2 > file.gz (其中一个文件坏影响其他文件)
+察看解压前有多少byte
+gzip -cd file.gz | wc -c
+
+.Z压缩
+compress -vf XXXX
+uncompress ****.Z
+
+3.查看进程占用资源
+prsta -a
+
+4.dos转unix
+dos2unit XXX/XXX
+
+
+5.装机
+家用小型linux服务器
+/boot,/,/usr,/var,/tmp 独立
+/home 独立
+1GB的swap
+/boot  100m  放在整块硬盘的最前面
+
+pc集群(cluster)计算机群
+/,/usr,/var,/tmp
+2GB的swap
+/home  独立
+/cluster/raid目录  大容量
+
+6.基础操作
+date "+%Y/%m/%d %H:%M:%S"
+
+cal 月 年
+
+bc计算器
+scale=n  小数位数，默认n=0
+quit退出
+
+7.重要热键
+[tab][tab]补全命令
+[Ctrl-c]终止命令
+[Ctrl-d]键盘输入结束
+
+8.帮助man
+/**	向下查询
+?**	向上查询
+n	继续下一个查询
+N	反向查询
+
+帮助info
+
+9.关机前
+who	有谁在线
+netstate -a	网络的联机状态
+ps -aux	后台执行程序
+sync	同步
+shutdown	reboot	halt	poweroff
+
+10.
+chgrp	修改所有组
+chown	修改所有者
+chmod	修改权限
+
+11.linux取得路径，文件，目录名
+basename \**\**\**
+dirname \**\**\**
+
+12.文件内容查询
+cat
+tac	从最后一行开始显示
+nl	显示行号	=cat -n
+more	一页一页往前
+less	一页一页往后
+head	头几行
+tail	尾几行
+od	二进制
+
+13.文件默认权限
+ umask
+
+14.文件隐藏属性
+chattr,lsattr
+chattr +i **	不能删除
+chattr -i **	取出不能删除
+lsattr **	显示文件隐藏属性
+
+15.文件特殊权限 SUID,SGID,SBIT
+SUID,SGID对二进制程序有效。（命令）
+SBIT只对目录有效
+4为SUID
+2为SGID
+1为SBIT
+chmod 4755 ***   4表示SUID
+
+16.查看文件类型
+file ***
+
+17.脚本文件名的查询
+which -a ***
+type ***
+
+18.文件名的查询
+whereis ***
+locate ***
+以上根据数据库来查找，更新数据库命令updatedb
+find PATH ***
+例：
+find / -mtime 0			24小时内有改动文件
+find / -mtime 3			3天前有改动的文件（3-4天）
+find /etc -newer /etc/passwd	/etc下比/etc/passwd更新的文件
+find / -mtime +4		大于等于5天前的文件
+find / -mtime -4		小于等于4天内的文件
+find / -mtime 4			4-5天内的文件
+find / -name passwd		找出文件名为passwd的文件
+find /var -type S		类型为socket文件
+find /var -type p		类型为FIFO文件,pipe
+find / -perm +7000		含SUID,SGID,SBIT属性的文件
+find / -perm +7000 -exec ls -l {} \;
+find / -size +1000k
+
+19.磁盘与目录的容量
+df:列出文件系统的整体磁盘使用量
+du:评估文件系统的磁盘使用量
+
+20.连接文件ln
+硬连接
+ln *** ***
+软连接
+ln -s *** ***
+
+21.磁盘命令
+磁盘分区	:fdisk
+磁盘格式化	:mkfs
+磁盘检验	:fsck,bad blocks
+磁盘挂载	:mount
+磁盘参数修改	:mknod
+卷标修改	:e2label
+tune2fs -j **	将ext2->ext3
+tune2fs -L	类似e2label功能
+
+22.挂载iso
+mount -o loop /**/**/**.iso	/mnt/**
+umount /mnt/**/
+
+23.dos与linux的断行转换
+dos2UNIX -kn
+UNIX2dos -kn
+-k	保留源文件mtime
+-n	创建新文件
+
+24.转编码
+iconv --list	列出支持的编码
+iconv -f 原编码 -t 新编码 filename [-o newfile]
+
+
