@@ -1,187 +1,194 @@
 1.find . -name "*pco" -type f | xargs grep -i -l '"*ISNUM*'
 
-2.Ñ¹ËõÓë½âÑ¹
-tar ¹éµµ
-tar -cvf **.tar Ä¿Â¼/ÎÄ¼şÃû
-tar -czf **.tar.gz Ä¿Â¼/ÎÄ¼şÃû
-tar -cjf **.tar.bz2 Ä¿Â¼/ÎÄ¼şÃû
-tar -tvf **.tar ²ì¿´tarÀïµÄÎÄ¼ş
-tar -rvf **.tar ÒªÌí¼ÓµÄÎÄ¼ş»òÄ¿Â¼
-tar --delete -f **.tar ÒªÉ¾³ıµÄÎÄ¼ş»òÄ¿Â¼
+2.å‹ç¼©ä¸è§£å‹
+tar å½’æ¡£
+tar -cvf **.tar ç›®å½•/æ–‡ä»¶å
+tar -czf **.tar.gz ç›®å½•/æ–‡ä»¶å
+tar -jcvf **.tar.bz2 ç›®å½•/æ–‡ä»¶å
+tar --exclude-vcs -jcvf **.tar.bz2 ç›®å½•/æ–‡ä»¶å                                           æ’é™¤ç‰ˆæœ¬ä¿¡æ¯æ–¹æ³•1
+tar --exclude=.svn -jcvf **.tar.bz2 ç›®å½•/æ–‡ä»¶å                                       æ’é™¤ç‰ˆæœ¬ä¿¡æ¯æ–¹æ³•2
+tar -tvf **.tar å¯Ÿçœ‹taré‡Œçš„æ–‡ä»¶
+tar -rvf **.tar è¦æ·»åŠ çš„æ–‡ä»¶æˆ–ç›®å½•
+tar --delete -f **.tar è¦åˆ é™¤çš„æ–‡ä»¶æˆ–ç›®å½•
 c:create
 f:file
-v:verbose ĞÅÏ¢
+v:verbose ä¿¡æ¯
 j:bz2
 z:gz
 t:list
 r:append file
 --delete delete file from tar
 
-½âµµtar
-tar -xvf **.tar -C Ö¸¶¨Ä¿Â¼
-½âµµtar.gz
-tar -xzf **.tar.gz -C Ö¸¶¨Ä¿Â¼
-½âµµtar.gzÄ³Ò»¸öÎÄ¼ş
+è§£æ¡£tar
+tar -xvf **.tar -C æŒ‡å®šç›®å½•
+è§£æ¡£tar.gz
+tar -xzf **.tar.gz -C æŒ‡å®šç›®å½•
+è§£æ¡£tar.gzæŸä¸€ä¸ªæ–‡ä»¶
 tar -xzf **.tar.gz file1
+è§£å‹è§£æ¡£
+tar -jxvf **.tar.bz2 -C æŒ‡å®šç›®å½•
 
-gzip Ñ¹Ëõ
+gzip å‹ç¼©
 gzip -dc **.tar.gz
 c:write output an standard output
-d:½âÑ¹
+d:è§£å‹
 
 gzip -c file > file.gz
-cat file1 file2 | gzip > file.gz (ÆäÖĞÒ»¸öÎÄ¼ş»µ²»Ó°ÏìÆäËûÎÄ¼ş)
-gzip file1 file2 > file.gz (ÆäÖĞÒ»¸öÎÄ¼ş»µÓ°ÏìÆäËûÎÄ¼ş)
-²ì¿´½âÑ¹Ç°ÓĞ¶àÉÙbyte
+cat file1 file2 | gzip > file.gz (å…¶ä¸­ä¸€ä¸ªæ–‡ä»¶åä¸å½±å“å…¶ä»–æ–‡ä»¶)
+gzip file1 file2 > file.gz (å…¶ä¸­ä¸€ä¸ªæ–‡ä»¶åå½±å“å…¶ä»–æ–‡ä»¶)
+å¯Ÿçœ‹è§£å‹å‰æœ‰å¤šå°‘byte
 gzip -cd file.gz | wc -c
 
-.ZÑ¹Ëõ
+.Zå‹ç¼©
 compress -vf XXXX
 uncompress ****.Z
 
-3.²é¿´½ø³ÌÕ¼ÓÃ×ÊÔ´
+3.æŸ¥çœ‹è¿›ç¨‹å ç”¨èµ„æº
 prsta -a
 
-4.dos×ªunix
+4.dosè½¬unix
 dos2unit XXX/XXX
 
 
-5.×°»ú
-¼ÒÓÃĞ¡ĞÍlinux·şÎñÆ÷
-/boot,/,/usr,/var,/tmp ¶ÀÁ¢
-/home ¶ÀÁ¢
-1GBµÄswap
-/boot  100m  ·ÅÔÚÕû¿éÓ²ÅÌµÄ×îÇ°Ãæ
+5.è£…æœº
+å®¶ç”¨å°å‹linuxæœåŠ¡å™¨
+/boot,/,/usr,/var,/tmp ç‹¬ç«‹
+/home ç‹¬ç«‹
+1GBçš„swap
+/boot  100m  æ”¾åœ¨æ•´å—ç¡¬ç›˜çš„æœ€å‰é¢
 
-pc¼¯Èº(cluster)¼ÆËã»úÈº
+pcé›†ç¾¤(cluster)è®¡ç®—æœºç¾¤
 /,/usr,/var,/tmp
-2GBµÄswap
-/home  ¶ÀÁ¢
-/cluster/raidÄ¿Â¼  ´óÈİÁ¿
+2GBçš„swap
+/home  ç‹¬ç«‹
+/cluster/raidç›®å½•  å¤§å®¹é‡
 
-6.»ù´¡²Ù×÷
+6.åŸºç¡€æ“ä½œ
 date "+%Y/%m/%d %H:%M:%S"
 
-cal ÔÂ Äê
+cal æœˆ å¹´
 
-bc¼ÆËãÆ÷
-scale=n  Ğ¡ÊıÎ»Êı£¬Ä¬ÈÏn=0
-quitÍË³ö
+bcè®¡ç®—å™¨
+scale=n  å°æ•°ä½æ•°ï¼Œé»˜è®¤n=0
+quité€€å‡º
 
-7.ÖØÒªÈÈ¼ü
-[tab][tab]²¹È«ÃüÁî
-[Ctrl-c]ÖÕÖ¹ÃüÁî
-[Ctrl-d]¼üÅÌÊäÈë½áÊø
+7.é‡è¦çƒ­é”®
+[tab][tab]è¡¥å…¨å‘½ä»¤
+[Ctrl-c]ç»ˆæ­¢å‘½ä»¤
+[Ctrl-d]é”®ç›˜è¾“å…¥ç»“æŸ
 
-8.°ïÖúman
-/**	ÏòÏÂ²éÑ¯
-?**	ÏòÉÏ²éÑ¯
-n	¼ÌĞøÏÂÒ»¸ö²éÑ¯
-N	·´Ïò²éÑ¯
+8.å¸®åŠ©man
+/**	å‘ä¸‹æŸ¥è¯¢
+?**	å‘ä¸ŠæŸ¥è¯¢
+n	ç»§ç»­ä¸‹ä¸€ä¸ªæŸ¥è¯¢
+N	åå‘æŸ¥è¯¢
 
-°ïÖúinfo
+å¸®åŠ©info
 
-9.¹Ø»úÇ°
-who	ÓĞË­ÔÚÏß
-netstate -a	ÍøÂçµÄÁª»ú×´Ì¬
-ps -aux	ºóÌ¨Ö´ĞĞ³ÌĞò
-sync	Í¬²½
+9.å…³æœºå‰
+who	æœ‰è°åœ¨çº¿
+netstate -a	ç½‘ç»œçš„è”æœºçŠ¶æ€
+ps -aux	åå°æ‰§è¡Œç¨‹åº
+sync	åŒæ­¥
 shutdown	reboot	halt	poweroff
 
 10.
-chgrp	ĞŞ¸ÄËùÓĞ×é
-chown	ĞŞ¸ÄËùÓĞÕß
-chmod	ĞŞ¸ÄÈ¨ÏŞ
+chgrp	ä¿®æ”¹æ‰€æœ‰ç»„
+chown	ä¿®æ”¹æ‰€æœ‰è€…
+chmod	ä¿®æ”¹æƒé™
 
-11.linuxÈ¡µÃÂ·¾¶£¬ÎÄ¼ş£¬Ä¿Â¼Ãû
+11.linuxå–å¾—è·¯å¾„ï¼Œæ–‡ä»¶ï¼Œç›®å½•å
 basename \**\**\**
 dirname \**\**\**
 
-12.ÎÄ¼şÄÚÈİ²éÑ¯
+12.æ–‡ä»¶å†…å®¹æŸ¥è¯¢
 cat
-tac	´Ó×îºóÒ»ĞĞ¿ªÊ¼ÏÔÊ¾
-nl	ÏÔÊ¾ĞĞºÅ	=cat -n
-more	Ò»Ò³Ò»Ò³ÍùÇ°
-less	Ò»Ò³Ò»Ò³Íùºó
-head	Í·¼¸ĞĞ
-tail	Î²¼¸ĞĞ
-od	¶ş½øÖÆ
+tac	ä»æœ€åä¸€è¡Œå¼€å§‹æ˜¾ç¤º
+nl	æ˜¾ç¤ºè¡Œå·	=cat -n
+more	ä¸€é¡µä¸€é¡µå¾€å‰
+less	ä¸€é¡µä¸€é¡µå¾€å
+head	å¤´å‡ è¡Œ
+tail	å°¾å‡ è¡Œ
+od	äºŒè¿›åˆ¶
 
-13.ÎÄ¼şÄ¬ÈÏÈ¨ÏŞ
+13.æ–‡ä»¶é»˜è®¤æƒé™
  umask
 
-14.ÎÄ¼şÒş²ØÊôĞÔ
+14.æ–‡ä»¶éšè—å±æ€§
 chattr,lsattr
-chattr +i **	²»ÄÜÉ¾³ı
-chattr -i **	È¡³ö²»ÄÜÉ¾³ı
-lsattr **	ÏÔÊ¾ÎÄ¼şÒş²ØÊôĞÔ
+chattr +i **	ä¸èƒ½åˆ é™¤
+chattr -i **	å–å‡ºä¸èƒ½åˆ é™¤
+lsattr **	æ˜¾ç¤ºæ–‡ä»¶éšè—å±æ€§
 
-15.ÎÄ¼şÌØÊâÈ¨ÏŞ SUID,SGID,SBIT
-SUID,SGID¶Ô¶ş½øÖÆ³ÌĞòÓĞĞ§¡££¨ÃüÁî£©
-SBITÖ»¶ÔÄ¿Â¼ÓĞĞ§
-4ÎªSUID
-2ÎªSGID
-1ÎªSBIT
-chmod 4755 ***   4±íÊ¾SUID
+15.æ–‡ä»¶ç‰¹æ®Šæƒé™ SUID,SGID,SBIT
+SUID,SGIDå¯¹äºŒè¿›åˆ¶ç¨‹åºæœ‰æ•ˆã€‚ï¼ˆå‘½ä»¤ï¼‰
+SBITåªå¯¹ç›®å½•æœ‰æ•ˆ
+4ä¸ºSUID
+2ä¸ºSGID
+1ä¸ºSBIT
+chmod 4755 ***   4è¡¨ç¤ºSUID
 
-16.²é¿´ÎÄ¼şÀàĞÍ
+16.æŸ¥çœ‹æ–‡ä»¶ç±»å‹
 file ***
 
-17.½Å±¾ÎÄ¼şÃûµÄ²éÑ¯
+17.è„šæœ¬æ–‡ä»¶åçš„æŸ¥è¯¢
 which -a ***
 type ***
 
-18.ÎÄ¼şÃûµÄ²éÑ¯
+18.æ–‡ä»¶åçš„æŸ¥è¯¢
 whereis ***
 locate ***
-ÒÔÉÏ¸ù¾İÊı¾İ¿âÀ´²éÕÒ£¬¸üĞÂÊı¾İ¿âÃüÁîupdatedb
+ä»¥ä¸Šæ ¹æ®æ•°æ®åº“æ¥æŸ¥æ‰¾ï¼Œæ›´æ–°æ•°æ®åº“å‘½ä»¤updatedb
 find PATH ***
-Àı£º
-find / -mtime 0			24Ğ¡Ê±ÄÚÓĞ¸Ä¶¯ÎÄ¼ş
-find / -mtime 3			3ÌìÇ°ÓĞ¸Ä¶¯µÄÎÄ¼ş£¨3-4Ìì£©
-find /etc -newer /etc/passwd	/etcÏÂ±È/etc/passwd¸üĞÂµÄÎÄ¼ş
-find / -mtime +4		´óÓÚµÈÓÚ5ÌìÇ°µÄÎÄ¼ş
-find / -mtime -4		Ğ¡ÓÚµÈÓÚ4ÌìÄÚµÄÎÄ¼ş
-find / -mtime 4			4-5ÌìÄÚµÄÎÄ¼ş
-find / -name passwd		ÕÒ³öÎÄ¼şÃûÎªpasswdµÄÎÄ¼ş
-find /var -type S		ÀàĞÍÎªsocketÎÄ¼ş
-find /var -type p		ÀàĞÍÎªFIFOÎÄ¼ş,pipe
-find / -perm +7000		º¬SUID,SGID,SBITÊôĞÔµÄÎÄ¼ş
+ä¾‹ï¼š
+find / -mtime 0			24å°æ—¶å†…æœ‰æ”¹åŠ¨æ–‡ä»¶
+find / -mtime 3			3å¤©å‰æœ‰æ”¹åŠ¨çš„æ–‡ä»¶ï¼ˆ3-4å¤©ï¼‰
+find /etc -newer /etc/passwd	/etcä¸‹æ¯”/etc/passwdæ›´æ–°çš„æ–‡ä»¶
+find / -mtime +4		å¤§äºç­‰äº5å¤©å‰çš„æ–‡ä»¶
+find / -mtime -4		å°äºç­‰äº4å¤©å†…çš„æ–‡ä»¶
+find / -mtime 4			4-5å¤©å†…çš„æ–‡ä»¶
+find / -name passwd		æ‰¾å‡ºæ–‡ä»¶åä¸ºpasswdçš„æ–‡ä»¶
+find /var -type S		ç±»å‹ä¸ºsocketæ–‡ä»¶
+find /var -type p		ç±»å‹ä¸ºFIFOæ–‡ä»¶,pipe
+find / -perm +7000		å«SUID,SGID,SBITå±æ€§çš„æ–‡ä»¶
 find / -perm +7000 -exec ls -l {} \;
 find / -size +1000k
 
-19.´ÅÅÌÓëÄ¿Â¼µÄÈİÁ¿
-df:ÁĞ³öÎÄ¼şÏµÍ³µÄÕûÌå´ÅÅÌÊ¹ÓÃÁ¿
-du:ÆÀ¹ÀÎÄ¼şÏµÍ³µÄ´ÅÅÌÊ¹ÓÃÁ¿
+19.ç£ç›˜ä¸ç›®å½•çš„å®¹é‡
+df:åˆ—å‡ºæ–‡ä»¶ç³»ç»Ÿçš„æ•´ä½“ç£ç›˜ä½¿ç”¨é‡
+du:è¯„ä¼°æ–‡ä»¶ç³»ç»Ÿçš„ç£ç›˜ä½¿ç”¨é‡
+du -hs ç›®å½•
+-h K,M,Gè¡¨ç¤ºå®¹é‡
+-s æ˜¾ç¤ºå¤šå­ç›®å½•çš„åˆè®¡å€¼
 
-20.Á¬½ÓÎÄ¼şln
-Ó²Á¬½Ó
+20.è¿æ¥æ–‡ä»¶ln
+ç¡¬è¿æ¥
 ln *** ***
-ÈíÁ¬½Ó
+è½¯è¿æ¥
 ln -s *** ***
 
-21.´ÅÅÌÃüÁî
-´ÅÅÌ·ÖÇø	:fdisk
-´ÅÅÌ¸ñÊ½»¯	:mkfs
-´ÅÅÌ¼ìÑé	:fsck,bad blocks
-´ÅÅÌ¹ÒÔØ	:mount
-´ÅÅÌ²ÎÊıĞŞ¸Ä	:mknod
-¾í±êĞŞ¸Ä	:e2label
-tune2fs -j **	½«ext2->ext3
-tune2fs -L	ÀàËÆe2label¹¦ÄÜ
+21.ç£ç›˜å‘½ä»¤
+ç£ç›˜åˆ†åŒº	:fdisk
+ç£ç›˜æ ¼å¼åŒ–	:mkfs
+ç£ç›˜æ£€éªŒ	:fsck,bad blocks
+ç£ç›˜æŒ‚è½½	:mount
+ç£ç›˜å‚æ•°ä¿®æ”¹	:mknod
+å·æ ‡ä¿®æ”¹	:e2label
+tune2fs -j **	å°†ext2->ext3
+tune2fs -L	ç±»ä¼¼e2labelåŠŸèƒ½
 
-22.¹ÒÔØiso
+22.æŒ‚è½½iso
 mount -o loop /**/**/**.iso	/mnt/**
 umount /mnt/**/
 
-23.dosÓëlinuxµÄ¶ÏĞĞ×ª»»
+23.dosä¸linuxçš„æ–­è¡Œè½¬æ¢
 dos2UNIX -kn
 UNIX2dos -kn
--k	±£ÁôÔ´ÎÄ¼şmtime
--n	´´½¨ĞÂÎÄ¼ş
+-k	ä¿ç•™æºæ–‡ä»¶mtime
+-n	åˆ›å»ºæ–°æ–‡ä»¶
 
-24.×ª±àÂë
-iconv --list	ÁĞ³öÖ§³ÖµÄ±àÂë
-iconv -f Ô­±àÂë -t ĞÂ±àÂë filename [-o newfile]
+24.è½¬ç¼–ç 
+iconv --list	åˆ—å‡ºæ”¯æŒçš„ç¼–ç 
+iconv -f åŸç¼–ç  -t æ–°ç¼–ç  filename [-o newfile]
 
 
