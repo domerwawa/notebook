@@ -1,0 +1,23 @@
+build.gradle
+
+1. web sample
+apply plugin: 'war'
+apply plugin: 'jetty'
+version = 1.0
+
+repositories {
+	flatDir{ dirs "src\\main\\webapp\\WEB-INF\\lib" }
+}
+
+dependencies {
+	providedCompile "XXX.XX:XXX:1.0"
+	...
+}
+
+war {
+	classpath fileTree('lib') //add a file-set to the WEB-INF/lib dir.
+}
+
+如果jar包放在src\main\WEB-INF\lib下可以不写war task
+
+

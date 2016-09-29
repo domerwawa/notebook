@@ -1,0 +1,78 @@
+log4j2.xml
+1. 基本结构
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Properties>
+		<Property name="XX">XXX</Property>
+		<Property name="YY">YYY</Property>
+	</Properties>
+	
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+      		<PatternLayout charset="Shift-jis" pattern="%d [%t] %-5p %c- %m%n"/>
+    	</Console>
+		<File name="MyFile" fileName="logs/app.log">
+	      <PatternLayout>
+	        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+	      </PatternLayout>
+	    </File>
+	    <RollingFile name="RollingFileInfo" fileName="logs/roll.log"
+                     filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <!warn only>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+	    
+    	<SMTP name="Mail" subject="Error Log" to="errors@logging.apache.org" from="test@logging.apache.org"
+          	smtpHost="localhost" smtpPort="25" bufferSize="50">
+          	<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+    	</SMTP>
+	</Appernders>
+	<Loggers>
+		<Logger name="com.adams.XXA">
+			<level value="WARN"/>
+		</Logger>
+		<Logger name="com.adams.XXB" level="DEBUG"/>
+			<AppenderRef ref="MyFile">
+			<AppenderRef ref="Mail" level="WARN"/>
+		</Logger>
+		<Root level="DEBUG">
+			<AppenderRef ref="STDOUT"/>
+			<AppenderRef ref="MyFile"/>
+		
+		</Root>
+	</Loggers>
+</Configuration>
+
+2. 改编码
+<PatternLayout charset="Shift-jis" pattern="%d [%t] %-5p %c- %m%n"/>
+
+3. 读取变量
+环境变量
+${env:XX}
+读取pom变量
+${XX}
+
+4. 注意，<SMTP>里filter失效，可以把level写在<Loggers>里
+
+5. Filter
+Filter可以写在Appenders里，也可以写在Loggers里
+(1). ThresholdFilter
+大于等于WARN
+<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+only WARN
+<Filters>
+    <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+    <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+</Filters>
+
+(2). RegexFilter
+匹配字符串ad
+<RegexFilter regex=".*ad.*" onMatch="ACCEPT" onMisMatch="DENY"/>

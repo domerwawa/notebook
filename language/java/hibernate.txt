@@ -1,0 +1,25 @@
+1.uuid
+@Id
+@GenerateValue(generator="system-uuid")
+@GenericGenerator(name="system-uuid", stategy="uuid")
+@Column(name="CUSTOMER-ID", nullable=false, length=32)
+
+2.一对多，一方
+@OneToMany
+@JoinColumn(name="CUSTOMER_ID")
+public Set<Trade> getTrades(){
+	return trades;
+}
+
+3.多对一，多方
+@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="CUSTOMER_ID", insertable=false, updatetable=false)
+public Customer getCustomer(){
+	return customer;
+}
+
+4.公式
+@Formula("(SELECT SUM(trade.TRADE_PRICE) FROM TRAD trade where CUSTOMER_ID = trade.CUSTOMER_ID GROUP BY trade.CUSTOMER_ID)")
+public BigDeciaml getTradePriceSum(){
+	return tradePriceSum;
+}
