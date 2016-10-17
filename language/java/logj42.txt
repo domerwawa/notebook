@@ -28,6 +28,7 @@ log4j2.xml
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
+            <DefaultRolloverStrategy max="3" fileIndex="min"/>
         </RollingFile>
 	    
     	<SMTP name="Mail" subject="Error Log" to="errors@logging.apache.org" from="test@logging.apache.org"
