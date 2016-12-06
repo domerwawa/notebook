@@ -1,53 +1,53 @@
-1.dosÃüÁîĞĞ
+1.doså‘½ä»¤è¡Œ
 run->db2cmd
 db2 connect to database user XXX using XXX
-²é¿´db2±àÂë
-db2look -d Êı¾İ¿âÃû -i ÓÃ»§Ãû -w ÃÜÂë | finstr Database
+æŸ¥çœ‹db2ç¼–ç 
+db2look -d æ•°æ®åº“å -i ç”¨æˆ·å -w å¯†ç  | finstr Database
 
-2.ixfÎÄ¼şµ¼³öºÍµ¼Èë
+2.ixfæ–‡ä»¶å¯¼å‡ºå’Œå¯¼å…¥
 db2 "EXPORT TO ***.ixf of IXF MESSAGE XXX.out select * from table with ur"
 db2 "IMPORT FROM ***.ixf of IXF MESSAGE XXX.out INSERT INTO XXX"
 
-3.ÎÄ±¾ÎÄ¼şµ¼³öºÍµ¼ÈëÒÔ¶ººÅ¸ô¿ª
+3.æ–‡æœ¬æ–‡ä»¶å¯¼å‡ºå’Œå¯¼å…¥ä»¥é€—å·éš”å¼€
 db2 "EXPORT TO ***.txt of DEL MESSAGE XXX.out select * from table with ur"
-import Âı
+import æ…¢
 db2 "IMPORT FROM ***.txt of DEL MESSAGE XXX.out INSERT INTO table nonrecoverable""
-load  ¿ì
+load  å¿«
 db2 "LOAD client FROM **.txt of DEL Insert INTO table nonrecoverable"
-×¢Òâ£ºnonrecoverable ²»±¸·İ±í¿Õ¼ä£¬±¸·İĞèÒªºÜ³¤Ê±¼ä
+æ³¨æ„ï¼šnonrecoverable ä¸å¤‡ä»½è¡¨ç©ºé—´ï¼Œå¤‡ä»½éœ€è¦å¾ˆé•¿æ—¶é—´
 
 db2 "LOAD client FROM **.txt of DEL Replace INTO table nonrecoverable"
-×¢Òâ: Replace into ÊÇÉ¾³ıµ¼Èë£¬ Insert intoÊÇÔöÁ¿µ¼Èë
+æ³¨æ„: Replace into æ˜¯åˆ é™¤å¯¼å…¥ï¼Œ Insert intoæ˜¯å¢é‡å¯¼å…¥
 
 
-4.²é¿´±í¿Õ¼ä
+4.æŸ¥çœ‹è¡¨ç©ºé—´
 DB2 "list tablespaces"
 DB2 "list tablespaces show detail"
 
-5.DB2´æ´¢¹ı³ÌÖĞµ÷ÓÃload
+5.DB2å­˜å‚¨è¿‡ç¨‹ä¸­è°ƒç”¨load
 (1).CALL SYSPROC.ADMIN_CMD('load from (select * from XX) of cursor insert into XXX nonrecoverable')
-(2).CALL SYSPROC.DB2LOAD(ºÜ¶à²ÎÊı£¬²ÎÕÕ´æ´¢¹ı³ÌDB2LOADÄÚ²¿ÊµÏÖ£¬»òÍøÉÏ²é)
-*(2)¿ÉÒÔ·µ»Ø¼şÊı
-(3).¿ìËÙÉ¾³ıÊı¾İ
+(2).CALL SYSPROC.DB2LOAD(å¾ˆå¤šå‚æ•°ï¼Œå‚ç…§å­˜å‚¨è¿‡ç¨‹DB2LOADå†…éƒ¨å®ç°ï¼Œæˆ–ç½‘ä¸ŠæŸ¥)
+*(2)å¯ä»¥è¿”å›ä»¶æ•°
+(3).å¿«é€Ÿåˆ é™¤æ•°æ®
 (1).CALL SYSPROC.ADMIN_CMD('load from /dev/null of del replace into XXX nonrecoverable')
 
-6.±í¿Õ¼äÕ¼ÓÃ
+6.è¡¨ç©ºé—´å ç”¨
 select tabname, npages*16384/(1024*1024) from syscat.tables where tabname = 'XXXX'\
 select x.TABNAME, sum(x.DATA_OBJECT_P_SIZXE + x.INDEX_OBJECT_P_SIZE + x.LOB_OBJECT_P_SIZE + x.LONG_OBJECT_P_SIZE + x.XML_OBJECT_P_SIZE)
 from SYSIBMADM.ADMINTABINFO x
 group by TABNAME
 
-7.nullÖÃ»»
+7.nullç½®æ¢
 coalesce(**, '0')
 value(**, '0')
 
-8.²éÕÒ×Ö·û
+8.æŸ¥æ‰¾å­—ç¬¦
 locale(**, '*')
 
-9.ÇĞ¸î×Ö·û´®
+9.åˆ‡å‰²å­—ç¬¦ä¸²
 SUBSTR(**, start, length)
 
-10.´æ´¢¹ı³Ì
+10.å­˜å‚¨è¿‡ç¨‹
 CREATE PROCEDURE ***(IN **, OUT **)
 SPECIFIC ***
 MODIFIES SQL DATA
@@ -63,7 +63,7 @@ BEGIN
 	 SELECT ....FROM ....'
 
 	OREN ***;
-	FETCH *** INTO **(¶¨ÒåµÄ×Ö¶Î);
+	FETCH *** INTO **(å®šä¹‰çš„å­—æ®µ);
 	
 	WHILE (V_AT_END = 0)
 	DO
@@ -74,3 +74,9 @@ BEGIN
 	END WHILE;
 	CLOSE **;
 END
+
+10ï¼Œ åˆ›å»ºalias
+db2 create alias <alias_name> for <table_name> 
+
+
+

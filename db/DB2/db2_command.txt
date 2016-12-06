@@ -1,0 +1,637 @@
+启动：命令行 db2=> db2start
+
+控制中心 启动
+
+停止: 命令行 db2=> terminate 结束会话
+
+db2stop [force]
+
+控制中心 停止
+
+get dbm config 查看数据库管理器配置
+
+get db cfg for databasename 查看 db 的数据库配置
+
+list database directory 列出系统数据库目录
+
+list tablespaces 列出当前数据库中定义的表空间
+
+list tables [for all] 列出当前数据库中的表
+
+list active databases 列出活动数据库
+
+list applications show detail 列出应用详情
+
+alter bufferpool ibmdefaultbp size 10240 缓冲池参数修改
+
+select * from syscat.bufferpools 查看本表的数据内容
+
+get snapshot for locks on dbname 查看数据库锁定快照
+
+==============查看和更改与锁相关的主要配置参数=================
+
+get db cfg
+
+在参数列表中寻找DLCHKTIME和LOCKTIMEOUT两个参数。
+
+－DLCHKTIME 单位是毫秒，是DB2检查死锁的间隔时间，假设该值为10000ms，则意味着每隔10秒钟检查一下当前数据库中有无死锁存在，如有死锁，会选择回滚其中的某一个事务，让另外一个事务完成交易。
+
+－LOCKTIMEOUT单位是秒，是锁等待最长时间，超过该时间仍未获得锁，则返回错误。
+
+设置提示：
+
+－缺省情况下，LOCKTIMEOUT是-1，意味着锁等待时间无限期，这和实际应用需求一般是不太相符的，需要将其值设为大于0的一个数。
+
+－DLCHKTIME时间通常要设得比LOCKTIMEOUT时间小一些，否则未等发现死锁，就会被以锁等待超时而返回错误。
+
+更改示例（CLP方式）
+
+update db cfg using locktimeout 10
+
+==============查看当前并发应用===============
+
+list applications
+
+或list applications show detail
+
+或list applications for database dbname [ show detail]
+
+该命令可以查看当前是否有多个应用在连接着数据库，从而排查是否有并发的存在。
+
+注意Application Name 和Application Id两栏，Application Name栏列出了应用的名字，db2bp通常意味着目前有CLP在连接数据库，java则意味着可能有db2cc或用户自己的java应用在连接数据库，在application Id栏中可以看到这些应用来自于哪些机器，本机的就显示为 LOCAL + 用户名 + 开始连接上的时间，远程的就会显示为16进制的IP地址＋用户名＋开始连接上的时间。通过排查并发应用从而消除测试中不必要的锁现象。
+
+=================查看和更改快照参数 ===========
+
+如果在合理设置了DLCHKTIME和LOCKTIMEOUT参数仍然出现锁现象，可以查看快照或者创建事件监控器来分析原因。要采用快照，首先要打开快照开关
+
+get monitor switches
+
+输出中将包含以下参数：
+
+监控开关 数据库管理器参数 注释
+
+BUFFERPOOL DFT_MON_BUFPOOL 缓冲区的读写情况和发生时间
+
+LOCK DFT_MON_LOCK 锁持有，锁等待，以及死锁的发生情况
+
+SORT DFT_MON_SORT Heap的使用情况，排序性能
+
+STATEMENT DFT_MON_STMT 语句起始时间，语句内容
+
+TABLE DFT_MON_TABLE Measure of activity (rows read/written)
+
+UOW DFT_MON_UOW Start/end times, completion status
+
+TIMESTAMP DFT_MON_TIMESTAMP Timestamps
+
+为了观察快照中的锁和执行语句情况，一般把LOCK和STATEMENT选项设为ON，也可以酌情把其他开关打开，示例如下： update monitor switches using lock on statement on
+
+=========查看快照信息 =====================
+
+-查看数据库管理器级别快照信息
+
+get snapshot for dbm
+
+-查看数据库级别快照信息
+
+get snapshot for database on dbname
+
+-查看应用级别快照信息
+
+get snapshot for application agentid appl-handler
+
+注：appl-handler可以从list applicaitions的输出中得到
+
+-查看表级别快照信息
+
+get snapshot for tables on dbname
+
+注：需要把tables快照开关设为ON才会有作用
+
+-查看锁快照信息
+
+get snapshot for locks on dbname
+
+或
+
+get snapshot for locks on for application agentid appl-handler
+
+-查看动态sql语句快照信息
+
+get snapshot for dynamic sql on dbname
+
+-------------------------------------
+
+监视开关打开
+
+db2 update dbm cfg using dft_mon_lock on
+
+监视器关闭
+
+db2 update dbm cfg using dft_mon_lock off
+
+杀掉连接 db2 force application all 查看连接 db2 list application
+
+-------------------------------------
+
+================使用事件查看器 =================
+
+可以使用时间查看器收集锁事件，SQL语句事件，从而根据事件分析锁原因。
+
+事件类型
+
+使用事件监控器，首先要选定所关注的事件类型，DB2中有很多事件类型，可以用于锁分析的通常会用到以下三种：
+
+DEADLOCKS
+
+DEADLOCKS WITH DETAILS
+
+STATEMENTS
+
+步骤：
+
+-创建事件监控器
+
+create event monitor evmname for eventtype write to file ‘directory’
+
+例：create event monitor mymonitor for deadlocks, statements
+
+write to file ‘c:\temp’
+
+-把事件监控器打开
+
+接上例：
+
+set event monitor mymonitor state 1
+
+注：1为打开，0为关闭
+
+事件监控器开始工作，当所有应用断掉连接后，将事件记录下来
+
+-查看事件细节
+
+db2evmon –path ‘c:\temp’
+
+导入文本
+
+DB2 中对TAB符分割字段的文本导入
+
+import from d:\07003.txt of del modified by coldel0x09 insert into tmp_mid_03001
+
+异机备份、恢复
+
+以下是小弟在使用db2move中的一些经验，希望对大家有所帮助。
+
+db2 connect to YOURDB
+
+连接数据库
+
+db2look -d YOURDB -a -e -x -o creatab.sql -i user -w password
+
+导出建库表的SQL
+
+db2move YOURDB export -u user -p password
+
+用db2move将数据备份出来
+
+vi creatab.sql
+
+如要导入的数据库名与原数据库不同，要修改creatab.sql中CONNECT 项
+
+如相同则不
+
+用更改
+
+执行creatab.sql创建新表
+
+将数据导入新库中
+
+db2move NEWDB load
+
+在导入中可能因为种种原因发生中断，会使数据库暂挂
+
+db2 list tablespaces show detail
+
+如：
+
+详细说明：
+
+装入暂挂
+
+总页数 = 1652
+
+可用页数 = 1652
+
+已用页数 = 1652
+
+空闲页数 = 不适用
+
+高水位标记（页） = 不适用
+
+页大小（字节） = 4096
+
+盘区大小（页） = 32
+
+预读取大小（页） = 32
+
+容器数 = 1
+
+状态更改表空间标识 = 2
+
+状态更改对象标识 = 59
+
+db2 select tabname,tableid from syscat.tables where tableid=59
+
+查看是哪张表挂起
+
+表名知道后到db2move.lst(在db2move YOURDB export的目录中)中找到相应的.ixf文件
+
+db2 load from tab11.ixf of ixf terminate into db2admin.xxxxxxxxx
+
+db2 load from tab66.ixf of ixf terminate into "DB2EMDB "."CM_TB_SYNLOG"
+
+tab11.ixf对应的是xxxxxxxxx表
+
+数据库会恢复正常可再用db2 list tablespaces show detail查看,有时会因为表空间的空间不够,导致导入失败的,提示信息在MSG里的啊
+
+如果可能出现的警告或报错“指定文件名或路径的参数无效”情况，改用IMPORT
+
+db2move YOURDB export -u user -p password
+
+db2move NEWDB import -io replace_create -u db2admin -p db2admin
+
+备份与恢复
+
+db2 force applications all
+
+db2 backup db ldapdb2 to directory_or_device
+
+db2 restore db ldapdb2 from directory_or_device replace existing
+
+数据库的备份与恢复：
+
+使用备份与恢复工具可以完成在不同的服务器见完整的转移数据库的工作，命令行方式如下：
+
+备份
+
+DB2 BACKUP DB db_name USER user_name USING password to backup_dir_name
+
+DB2 BACKUP DB dlhdb USER dlh USING admindlh TO d:\backups
+
+恢复
+
+DB2 RESTORE DB source_db_name USER user_name USING password FROM backup_dir_name TAKEN AT backup_file_create_time TO driver_letter INTO new_db_name
+
+DB2 RESTORE DB dlhdb USER dlh USING admindlh FROM d:\backups TAKEN AT 20031209141056 TO d: INTO newdb
+
+-----------------------
+
+1. 建立数据库DB2_GCB
+
+CREATE DATABASE DB2_GCB ON G: ALIAS DB2_GCB
+
+USING CODESET GBK TERRITORY CN COLLATE USING SYSTEM DFT_EXTENT_SZ 32
+
+2. 连接数据库
+
+connect to sample1 user db2admin using 8301206
+
+3. 建立别名
+
+create alias db2admin.tables for sysstat.tables;
+
+CREATE ALIAS DB2ADMIN.VIEWS FOR SYSCAT.VIEWS
+
+create alias db2admin.columns for syscat.columns;
+
+create alias guest.columns for syscat.columns;
+
+4. 建立表
+
+create table zjt_tables as
+
+(select * from tables) definition only;
+
+create table zjt_views as
+
+(select * from views) definition only;
+
+5. 插入记录
+
+insert into zjt_tables select *
+
+from tables;
+
+insert into zjt_views select * from views;
+
+6. 建立视图
+
+create view V_zjt_tables as select tabschema,tabname from zjt_tables;
+
+7. 建立触发器
+
+CREATE TRIGGER zjt_tables_del
+
+AFTER DELETE ON zjt_tables
+
+REFERENCING OLD AS O
+
+FOR EACH ROW MODE DB2SQL
+
+Insert into zjt_tables1 values(substr(o.tabschema,1,8),substr(o.tabname,1,10))
+
+8. 建立唯一性索引
+
+CREATE UNIQUE INDEX I_ztables_tabname
+
+[size=3]ON zjt_tables(tabname);
+
+9. 查看表
+
+select tabname from tables
+
+where tabname='ZJT_TABLES';
+
+10. 查看列
+
+select SUBSTR(COLNAME,1,20) as 列名,TYPENAME as 类型,LENGTH as 长度
+
+from columns
+
+where tabname='ZJT_TABLES';
+
+11. 查看表结构
+
+db2 describe table user1.department
+
+db2 describe select * from user.tables
+
+12. 查看表的索引
+
+db2 describe indexes for table user1.department
+
+13. 查看视图
+
+select viewname from views
+
+where viewname='V_ZJT_TABLES';
+
+14. 查看索引
+
+select indname from indexes
+
+where indname='I_ZTABLES_TABNAME';
+
+15. 查看存贮过程
+
+SELECT SUBSTR(PROCSCHEMA,1,15),SUBSTR(PROCNAME,1,15)
+
+FROM SYSCAT.PROCEDURES;
+
+16. 类型转换(cast)
+
+ip datatype:varchar
+
+select cast(ip as integer)+50 from log_comm_failed
+
+17. 重新连接
+
+connect reset
+
+18. 中断数据库连接
+
+disconnect db2_gcb
+
+19. view application
+
+LIST APPLICATION;
+
+20. kill application
+
+FORCE APPLICATION(0);
+
+db2 force applications all (强迫所有应用程序从数据库断开)
+
+21. lock table
+
+lock table test in exclusive mode
+
+22. 共享
+
+lock table test in share mode
+
+23. 显示当前用户所有表
+
+list tables
+
+24. 列出所有的系统表
+
+list tables for system
+
+25. 显示当前活动数据库
+
+list active databases
+
+26. 查看命令选项
+
+list command options
+
+27. 系统数据库目录
+
+LIST DATABASE DIRECTORY
+
+28. 表空间
+
+list tablespaces
+
+29. 表空间容器
+
+LIST TABLESPACE CONTAINERS FOR
+
+Example: LIST TABLESPACE CONTAINERS FOR 1
+
+30. 显示用户数据库的存取权限
+
+GET AUTHORIZATIONS
+
+31. 启动实例
+
+DB2START
+
+32. 停止实例
+
+db2stop
+
+33. 表或视图特权
+
+grant select,delete,insert,update on tables to user
+
+grant select on db2emdb.V_HW_GARAGE_AIRCONDITION to cmdbview
+
+grant all on tables to user WITH GRANT OPTION
+
+34. 程序包特权
+
+GRANT EXECUTE
+
+ON PACKAGE PACKAGE-name
+
+TO PUBLIC
+
+35. 模式特权
+
+GRANT CREATEIN ON SCHEMA SCHEMA-name TO USER
+
+36. 数据库特权
+
+grant connect,createtab,dbadm on database to user
+
+37. 索引特权
+
+grant control on index index-name to user
+
+38. 信息帮助 (? XXXnnnnn )
+
+例:? SQL30081
+
+39. SQL 帮助(说明 SQL 语句的语法)
+
+help statement
+
+例如，help SELECT
+
+40. SQLSTATE 帮助(说明 SQL 的状态和类别代码)
+
+? sqlstate 或 ? class-code
+
+41. 更改与"管理服务器"相
+
+关的口令
+
+db2admin setid username password
+
+42. 创建 SAMPLE 数据库
+
+db2sampl
+
+db2sampl F:(指定安装盘)
+
+43. 使用操作系统命令
+
+! dir
+
+44. 转换数据类型 (cast)
+
+SELECT EMPNO, CAST(RESUME AS VARCHAR(370))
+
+FROM EMP_RESUME
+
+WHERE RESUME_FORMAT = 'ascii'
+
+45. UDF
+
+要运行 DB2 Java 存储过程或 UDF，还需要更新服务器上的 DB2 数据库管理程序配置，以包括在该机器上安装 JDK 的路径
+
+db2 update dbm cfg using JDK11_PATH d:sqllibjavajdk
+
+TERMINATE
+
+update dbm cfg using SPM_NAME sample
+
+46. 检查 DB2 数据库管理程序配置
+
+db2 get dbm cfg
+
+47. 检索具有特权的所有授权名
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'DATABASE' FROM SYSCAT.DBAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'TABLE ' FROM SYSCAT.TABAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'PACKAGE ' FROM SYSCAT.PACKAGEAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'INDEX ' FROM SYSCAT.INDEXAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'COLUMN ' FROM SYSCAT.COLAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'SCHEMA ' FROM SYSCAT.SCHEMAAUTH
+
+UNION
+
+SELECT DISTINCT GRANTEE, GRANTEETYPE, 'SERVER ' FROM SYSCAT.PASSTHRUAUTH
+
+ORDER BY GRANTEE, GRANTEETYPE, 3
+
+create table yhdab
+
+(id varchar(10),
+
+password varchar(10),
+
+ywlx varchar(10),
+
+kh varchar(10));
+
+create table ywlbb
+
+(ywlbbh varchar(8),
+
+ywmc varchar(60))
+
+48. 修改表结构
+
+alter table yhdab ALTER kh SET DATA TYPE varchar(13);
+
+alter table yhdab ALTER ID SET DATA TYPE varchar(13);
+
+alter table lst_bsi alter bsi_money set data type int;
+
+insert into yhdab values
+
+('20000300001','123456','user01','20000300001'),
+
+('20000300002','123456','user02','20000300002');
+
+49. 业务类型说明
+
+insert into ywlbb values
+
+('user01','业务申请'),
+
+('user02','业务撤消'),
+
+('user03','费用查询'),
+
+('user04','费用自缴'),
+
+('user05','费用预存'),
+
+('user06','密码修改'),
+
+('user07','发票打印'),
+
+('gl01','改用户基本信息'),
+
+('gl02','更改支付信息'),
+
+('gl03','日统计功能'),
+
+('gl04','冲帐功能'),
+
+('gl05','对帐功能'),
+
+('gl06','计费功能'),
+
+('gl07','综合统计')
+
+50. db2 -tvf *.sql

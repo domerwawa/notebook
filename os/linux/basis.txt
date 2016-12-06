@@ -191,4 +191,21 @@ UNIX2dos -kn
 iconv --list	列出支持的编码
 iconv -f 原编码 -t 新编码 filename [-o newfile]
 
+25.查看内存
+free
+
+26.查看cpu信息
+查看物理CPU的个数
+cat /proc/cpuinfo |grep "physical id"|sort |uniq|wc –l
+cat /proc/cpuinfo | grep physical | uniq -c
+查看逻辑CPU的个数
+cat /proc/cpuinfo |grep "processor"|wc –l
+查看CPU是几核
+cat /proc/cpuinfo |grep "cores"|uniq
+查看CPU的主频
+cat /proc/cpuinfo |grep MHz|uniq
+查看cpu有几核（所有cpu合计）
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+查看cpu运行模式（32或64）
+getconf LONG_BIT
 
