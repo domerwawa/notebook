@@ -589,5 +589,56 @@ ssh hostname << END_SSH
 	...
 END_SSH
 
-73 quota
-显示磁盘配额
+73 显示磁盘配额
+quota
+
+74 显示目录大小
+du -hs XXX/XXX
+
+75 显示分区大小
+df
+
+76 连接sybase
+#! /bin/bash -f
+export SYBASE="opt/sybclient-15.7"
+source $SYBASE/SYBASE.sh
+
+result=`isql -S XXX -U XXX -P XXX << EOF 
+use XXX
+go
+select count(1) from XXX
+go
+quit
+EOF`
+echo $result
+
+77 连接db2
+#! /bin/bash -f
+. /local/udb/client/v97f9/sqllib/db2profile
+command=`db2 -p connect to DTOPSODS user XXX using XXX`
+if [[ $? -eq 0 ]];then
+	retCmdInfo=`db2 -x "set schema=tkwrrrp"`
+	if [[ $? -eq 0 ]];then
+		echo $retCmdInfo | tr -d ' '
+	else
+		echo "ERROR, setting schema error"
+		exit -1
+	fi
+	retCmdInfo=`db2 -x "set current_path = SYSIBM, SYSFUN, SYSRPOC, SYSIBMADM, TKWRRRP"`
+	if [[ $? -eq 0 ]];then
+		echo $retCmdInfo | tr -d ' '
+	else
+		echo "ERROR, setting current_path error"
+		exit -1
+	fi
+	cmdInfo=`db2 -x "select ** from XX uith ur"`
+	if [[ $? -eq 0 ]];then
+		echo $cmdInfo | tr -d ' '
+	else
+		echo "ERROR, No data received from database."
+		exit -1
+	fi
+else
+	echo "ERROR, connect to database with failed"
+	exit -1
+fi
