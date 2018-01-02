@@ -1,17 +1,41 @@
 build.gradle
 
 1. web sample
+buildscript{
+	repositories{
+		maven{
+			url 'https://rep1.....'
+		}
+		dependencies{
+			classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.4'
+		}
+	}
+}
+
+apply plugin" 'java'
 apply plugin: 'war'
-apply plugin: 'jetty'
-version = 1.0
+//apply plugin: 'application'
+//apply plugin: 'jetty'
+apply plugin: 'com.bmuschko.tomcat'
+sourceCompatibility=1.8
+version=0.01-SNAPSHOT
 
 repositories {
+	maven{
+		url 'https://rep1.....'
+	}
 	flatDir{ dirs "src\\main\\webapp\\WEB-INF\\lib" }
 }
 
 dependencies {
 	providedCompile "XXX.XX:XXX:1.0"
 	...
+	def tomcatVersion='8.0.8'
+	tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+	       "org.apache.tomcat.embed:tomcat-embed-el:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+	
 }
 
 war {
@@ -20,4 +44,5 @@ war {
 
 如果jar包放在src\main\WEB-INF\lib下可以不写war task
 
+// mainClassName='TestLog4j2'
 
