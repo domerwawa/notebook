@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="echarts.js"></script>
+</head>
+<body>
+	<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+	
+	<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+		// 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
+		var option = {
+			xAxis: {
+				data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
+			},
+			yAxis: {},
+			series: [{
+				type: 'k',
+				data: [
+					[20, 30, 10, 35],
+					[40, 35, 30, 55],
+					[33, 38, 33, 40],
+					[40, 40, 32, 42]
+				]
+			}]
+		};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+	
+</body>
+</html>
