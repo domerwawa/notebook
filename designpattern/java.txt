@@ -1,7 +1,7 @@
 1.Singleton Pattern
-ÀÁººÊ½
+æ‡’æ±‰å¼
 public class Singleton{
-	// volatile±£Ö¤ÁËĞÂÖµÄÜÁ¢¼´Í¬²½µ½Ö÷ÄÚ´æ£¬ Ã¿´ÎÊ¹ÓÃÇ°Ë¢ĞÂÖ÷ÄÚ´æ
+	// volatileä¿è¯äº†æ–°å€¼èƒ½ç«‹å³åŒæ­¥åˆ°ä¸»å†…å­˜ï¼Œ æ¯æ¬¡ä½¿ç”¨å‰åˆ·æ–°ä¸»å†…å­˜
 	private volatile static Singleton uniqueInstance = null;
 	
 	private String str1;
@@ -28,7 +28,7 @@ public class Singleton{
 	}
 }
 
-¶öººÊ½
+é¥¿æ±‰å¼
 public class Singleton{
 	private static final Singleton singleton = new Singleton();
 	
@@ -49,7 +49,7 @@ public class Singleton{
 	}
 }
 
-±È½ÏºÃµÄÊµÏÖ
+æ¯”è¾ƒå¥½çš„å®ç°
 public class Singleton{
 	private String str1;
 	
@@ -72,7 +72,7 @@ public class Singleton{
 	}
 }
 
-Ã¶¾ÙÊµÏÖ
+æšä¸¾å®ç°
 public enum Singleton{
 	
 	uniqueInstance;
@@ -88,9 +88,9 @@ public enum Singleton{
 }
 
 2.Multition Pattern
-¿ÉÒÔÓÃArrayList»òHashMapÊµÏÖ
+å¯ä»¥ç”¨ArrayListæˆ–HashMapå®ç°
 
-ArrayList--¶öººÊ½£¨Empty ArrayList get»áÅ×Exception£©
+ArrayList--é¥¿æ±‰å¼ï¼ˆEmpty ArrayList getä¼šæŠ›Exceptionï¼‰
 public class Waiter{
 	private static int maxNum = 3;
 	private static int current = 0;
@@ -98,7 +98,7 @@ public class Waiter{
 	priavte String name;
 	static{
 		for (int i=0; i<maxNum; i++){
-			waiterList.add(new Waiter("·şÎñÔ±" + (i + 1)));
+			waiterList.add(new Waiter("æœåŠ¡å‘˜" + (i + 1)));
 		}
 	private Waiter(){}
 	private Waiter(String name){
@@ -118,7 +118,7 @@ public class Waiter{
 }
 
 
-HashMap--ÀÁººÊ½£¨Empty HashMap get²»»áÅ×Exception£©£¬Ò²¿ÉĞ´³É¶öººÊ½
+HashMap--æ‡’æ±‰å¼ï¼ˆEmpty HashMap getä¸ä¼šæŠ›Exceptionï¼‰ï¼Œä¹Ÿå¯å†™æˆé¥¿æ±‰å¼
 public class Waitress{
 	private final static String DEFAULT_PREKEY = "Key";
 	private static Map<String, Waitress> waitressMap = new HashMap<String, Waitress>();
@@ -131,7 +131,7 @@ public class Waitress{
 		this.name = name;
 	}
 	public static Waitress getInstance(){
-		/* Ëæ»ú´æ
+		/* éšæœºå­˜
 		Random random = new Random();
 		currentNum = random.nextInt(NUM_MAX) + 1;
 		*/
@@ -141,7 +141,7 @@ public class Waitress{
 			waitress = new Waitress("waitress" + currentNum);
 			waitressMap.put(key, waitress);
 		}
-		//Ë³Ğò´æ
+		//é¡ºåºå­˜
 		currentNum++;
 		if (currentNum > NUM_MAX){
 			currentNum = 1;

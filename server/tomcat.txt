@@ -1,0 +1,4 @@
+1. 读取本地静态文件
+conf/server.xml中添加
+<Host appBase="/home/XXX/images" path="/static" />
+
