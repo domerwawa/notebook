@@ -1,15 +1,15 @@
-1. javascriptÄÚÖÃº¯Êı¡¢
-	(1).alert(×Ö·û´®)
-	(2).confirm(×Ö·û´®)            true false
-	(3).eval(±í´ïÊ½)               ¼ÆËã
-	(4).parseFloat                 ×ªfloat
-	(5).pareInt                    ×ªint
-	(6).escape(Iso-Latin-1×Ö·û´®)
-	(7).unescape(×Ö·û´®)
-	(8).isNan(XX)                  ²»ÊÇÊı×Ö
+1. javascriptå†…ç½®å‡½æ•°ã€
+	(1).alert(å­—ç¬¦ä¸²)
+	(2).confirm(å­—ç¬¦ä¸²)            true false
+	(3).eval(è¡¨è¾¾å¼)               è®¡ç®—
+	(4).parseFloat                 è½¬float
+	(5).pareInt                    è½¬int
+	(6).escape(Iso-Latin-1å­—ç¬¦ä¸²)
+	(7).unescape(å­—ç¬¦ä¸²)
+	(8).isNan(XX)                  ä¸æ˜¯æ•°å­—
 	
-2.Êı×é
-	(1).¾É°æÎŞÊı×é£¬×ÔÖÆ
+2.æ•°ç»„
+	(1).æ—§ç‰ˆæ— æ•°ç»„ï¼Œè‡ªåˆ¶
 	function make_array(index_num)
 	{
 		this.length = index_num
@@ -19,20 +19,20 @@
 	}
 	sung_arra = new make_array(4)
 	
-	(2).ĞÂ°æ
-	Êı×éÃû=new Array(ĞòºÅ)
+	(2).æ–°ç‰ˆ
+	æ•°ç»„å=new Array(åºå·)
 
-3.Êı×é¶ÔÏóµÄ·½·¨
-	(1).Join()         ½«Êı×é×ª»»³É×Ö·û´®£¬ÒÔ·ûºÅÆ´½Ó
+3.æ•°ç»„å¯¹è±¡çš„æ–¹æ³•
+	(1).Join()         å°†æ•°ç»„è½¬æ¢æˆå­—ç¬¦ä¸²ï¼Œä»¥ç¬¦å·æ‹¼æ¥
 	(2).Reverse()
 	(3).Sort()
-	(4).slice(n, m)    ½ØÈ¡Êı×éÖĞµÄÒ»²¿·ÖÉú³ÉĞÂµÄÊı×é(n->m-1)
+	(4).slice(n, m)    æˆªå–æ•°ç»„ä¸­çš„ä¸€éƒ¨åˆ†ç”Ÿæˆæ–°çš„æ•°ç»„(n->m-1)
 	(5).Concat()
 	
-4.typeof ¹Ø¼ü×Ö
-	ÅĞ¶ÏÀàĞÍ£¬ number  string  boolean  object
+4.typeof å…³é”®å­—
+	åˆ¤æ–­ç±»å‹ï¼Œ number  string  boolean  object
 
-5.screen¶ÔÏó   ×¢Ğ¡Ğ´screen
+5.screenå¯¹è±¡   æ³¨å°å†™screen
 	availHeight
 	availWidth
 	colorDepth
@@ -40,16 +40,16 @@
 	pixelDepth
 	width
 
-6.Number¶ÔÏó
-	Number(×Ö·û´®)×ªÊı×Ö£¬²»ÊÇÊı×ÖNaN
+6.Numberå¯¹è±¡
+	Number(å­—ç¬¦ä¸²)è½¬æ•°å­—ï¼Œä¸æ˜¯æ•°å­—NaN
 	
-7.Math¶ÔÏó
-	E        ÔÚ×ÔÈ»¶ÔÊıÏÂÊ¹ÓÃµÄEuler(Å·À­)Ö¸Êı
+7.Mathå¯¹è±¡
+	E        åœ¨è‡ªç„¶å¯¹æ•°ä¸‹ä½¿ç”¨çš„Euler(æ¬§æ‹‰)æŒ‡æ•°
 	PI
 	LN2
 	LN10
-	SQRT2    2µÄÆ½·½¸ù
-	SQRT1_2  1/2µÄÆ½·½¸ù
+	SQRT2    2çš„å¹³æ–¹æ ¹
+	SQRT1_2  1/2çš„å¹³æ–¹æ ¹
 	abs(x)
 	acos(x)
 	asin(x)
@@ -69,37 +69,37 @@
 	sqrt(x)
 	tan(x)
 
-8.String¶ÔÏó
-Éè¶¨×ÖÌåĞÎ×´
+8.Stringå¯¹è±¡
+è®¾å®šå­—ä½“å½¢çŠ¶
 big()
 small()
-blink()ÉÁË¸£¬NetsapeÖ§³Ö
+blink()é—ªçƒï¼ŒNetsapeæ”¯æŒ
 strike()
 bold()
 sub()
 fixed()
 sup()
 fontsize(xx)
-anchor("ÎÄ×Ö")
+anchor("æ–‡å­—")
 fontcolor("xx")
 link("xx")
 Italics()
 
-×Ö·û´®´¦Àí·½·¨
-charAt(Ë÷Òı)
-charCodeAt(Ë÷Òı)
-concat(×Ö·û´®)
-fromCharCode(±àºÅ1,...)
-IndexOf(×Ö·û´®)
-lastIndexOf(×Ö·û´®)
-slice(Ë÷Òı1, Ë÷Òı2)
-split(·Ö¸ô×Ö·û,¸öÊı)
-substr(ÆğÊ¼Ë÷Òı,³¤¶È)
-substring(Ë÷Òı1, Ë÷Òı2)
+å­—ç¬¦ä¸²å¤„ç†æ–¹æ³•
+charAt(ç´¢å¼•)
+charCodeAt(ç´¢å¼•)
+concat(å­—ç¬¦ä¸²)
+fromCharCode(ç¼–å·1,...)
+IndexOf(å­—ç¬¦ä¸²)
+lastIndexOf(å­—ç¬¦ä¸²)
+slice(ç´¢å¼•1, ç´¢å¼•2)
+split(åˆ†éš”å­—ç¬¦,ä¸ªæ•°)
+substr(èµ·å§‹ç´¢å¼•,é•¿åº¦)
+substring(ç´¢å¼•1, ç´¢å¼•2)
 toLowerCase()
 toUpperCase()
 
-9.JavaScriptµÄÊÂ¼ş
+9.JavaScriptçš„äº‹ä»¶
 	onAort
 	onBlur
 	onChange
@@ -122,12 +122,12 @@ toUpperCase()
 	onSelect
 	onUnload
 	
-10.window¶ÔÏóµÄÊôĞÔ
+10.windowå¯¹è±¡çš„å±æ€§
 	window.status="xxx"
-	ÉèÖÃ×´Ì¬À¸ÄÚ×Ö·û´®
+	è®¾ç½®çŠ¶æ€æ å†…å­—ç¬¦ä¸²
 	window.defaultStatus="xxx"
 	
-11.window¶ÔÏóµÄ·½·¨
+11.windowå¯¹è±¡çš„æ–¹æ³•
 	alert()
 	confirm()
 	prompt()

@@ -1,42 +1,42 @@
-1.PerlÖĞÖ¸¶¨×Ö·û±àÂë·½Ê½ÓĞ3ÖÖ
-#¶ÔÎÄ±¾È«ÌåÖ¸¶¨
-use open IN => ':euc-jp';           #ÊäÈëÓÃeuc-jp
-use open OUT => ':utf-8';           #Êä³öÓÃutf-8
-use open ':encoding (iso-8859-7)';  #È«²¿ÊäÈëÊä³öÓÃiso-8859-7
+1.Perlä¸­æŒ‡å®šå­—ç¬¦ç¼–ç æ–¹å¼æœ‰3ç§
+#å¯¹æ–‡æœ¬å…¨ä½“æŒ‡å®š
+use open IN => ':euc-jp';           #è¾“å…¥ç”¨euc-jp
+use open OUT => ':utf-8';           #è¾“å‡ºç”¨utf-8
+use open ':encoding (iso-8859-7)';  #å…¨éƒ¨è¾“å…¥è¾“å‡ºç”¨iso-8859-7
 
-#¶ÔÃ¿¸öÎÄ¼ş½øĞĞÖ¸¶¨
+#å¯¹æ¯ä¸ªæ–‡ä»¶è¿›è¡ŒæŒ‡å®š
 open (I1, "<:utf8", "file");
-open (I2, "<file");      #ÏÂÒ»ĞĞÖ¸¶¨
+open (I2, "<file");      #ä¸‹ä¸€è¡ŒæŒ‡å®š
 binmode(I2, ":utf-8");
 
-#ÒÔ×Ö·û´®Îªµ¥Î»±ä»»
+#ä»¥å­—ç¬¦ä¸²ä¸ºå•ä½å˜æ¢
 use Encode;
 $string = Encode::decode("euc-jp", $data);
 
-2.ÉèÖÃ»·¾³±äÁ¿
+2.è®¾ç½®ç¯å¢ƒå˜é‡
 $ENV{XXX}="XXX";
 
-3.ÈëÁ¦²ÎÊı
-@ARGV    #Èë²Î¸öÊı
-$ARGV[0] #µÚÒ»¸öÈë²Î
+3.å…¥åŠ›å‚æ•°
+@ARGV    #å…¥å‚ä¸ªæ•°
+$ARGV[0] #ç¬¬ä¸€ä¸ªå…¥å‚
 
-4.¶ÁÎÄ¼ş
+4.è¯»æ–‡ä»¶
 open(INPUT, "<$inputfile") or die "Can't open $inputfile";
-binmode INPUT;  						 #binyÄ£Ê½
+binmode INPUT;  						 #binyæ¨¡å¼
 while (<INPUT>){
-	my $line=$_;				#$_±íÊ¾×î½üµÄ±äÁ¿
+	my $line=$_;				#$_è¡¨ç¤ºæœ€è¿‘çš„å˜é‡
 	#skip the blank line
 	next if($line eq "");
-	#skip the line with "01XXX"		#Ìø¹ı01¿ªÍ·µÄĞĞ
+	#skip the line with "01XXX"		#è·³è¿‡01å¼€å¤´çš„è¡Œ
 	next if(m/^0\1|/);
 	printf(%s, $line);
 }
 close(INPUT);
 
-5.³öÁ¦ÎÄ¼ş
+5.å‡ºåŠ›æ–‡ä»¶
 printf OUTPUT "%10s%5d\n", $XX, $XXX;
 
-6.Á¬½ÓDB
+6.è¿æ¥DB
 my $dbh = DBI->connect($dsn, $db2user, $db2pwd) or dir "Can't open connection :$DBI::errstr";
 printf "Connecionis successful!!\n";
 my $stmt="select * from table";
@@ -48,14 +48,14 @@ while (my @row=$sth->fetchrow_array){
 $sth->finish();
 $dbh->disconnect();
 
-6.Ìæ»»×Ö·û´®
-$XX=~ s/ÒªÌæ»»µÄ/Ìæ»»µÄ/;
+6.æ›¿æ¢å­—ç¬¦ä¸²
+$XX=~ s/è¦æ›¿æ¢çš„/æ›¿æ¢çš„/;
 
-7.ÇĞ×Ö·û´®
+7.åˆ‡å­—ç¬¦ä¸²
 substr($XX, 0, 20);
-substr($XX, 20);      #21Î»µ½Ä©Î²
+substr($XX, 20);      #21ä½åˆ°æœ«å°¾
 
-8.È¥¿Õ¸ñ
+8.å»ç©ºæ ¼
 sub trim{
 	my @out=@_;
 	for (@out){
@@ -65,24 +65,24 @@ sub trim{
 	return @out==1?out[0]:@out;
 }
 
-9.perlÊ±¼ä
-localtime();=localtime(time);    µ±Ç°Ê±¼ä
-time                             Ê±²î
-gmtime				 ¸ñÁÖÍşÖÎÊ±¼ä
+9.perlæ—¶é—´
+localtime();=localtime(time);    å½“å‰æ—¶é—´
+time                             æ—¶å·®
+gmtime				 æ ¼æ—å¨æ²»æ—¶é—´
 
-ĞèÒª×ª»»µÄÊ±¼ä
+éœ€è¦è½¬æ¢çš„æ—¶é—´
 (my $sec, my $min, my $hour, my $day, my $mon, my $year, my $wday, my $yday, my $isdst)=localtime();
 $year+1900
 $mon+1
 
-²»ÓÃ×ª»»µÄÊ±¼ä
+ä¸ç”¨è½¬æ¢çš„æ—¶é—´
 use POSIX qw(strftime);
 
 printf strftime("%Y-%m-%d $H:%M:%s\n", localtime());
 my $year=sprintf strftime("%y\n", localtime());
 
-10.ÇĞ³ÉÊı×é
-@arr=split(/\|/, $line);   ÒÔ"|"ÇĞ
+10.åˆ‡æˆæ•°ç»„
+@arr=split(/\|/, $line);   ä»¥"|"åˆ‡
 
 11.hash list
 my %myhl=(1=>"aaa", 2=>"bbb", 3="ccc", 4="ddd");
@@ -137,13 +137,13 @@ $mailer->open({From     => "XXX@XX.com",
 print $mailer "hello world!!!";
 $mailer->close();
 
-14.perlĞ´log
+14.perlå†™log
 my $syslog = "/**/**/**.log";
 open(STDOUT, ">$syslog") or die "Could not open the log";
 
-15.Ñ­»·Ä¿Â¼ÎÄ¼ş
+15.å¾ªç¯ç›®å½•æ–‡ä»¶
 my $dir = "/**/**/**";
-my @dirs;	#Êı×é
+my @dirs;	#æ•°ç»„
 opendir(DIR, $dir) or die "Can't open the directory!";
 @dirs=readdir DIR;
 close(DIR);
