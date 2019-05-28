@@ -22,3 +22,12 @@ select @@tx_isolation
 3. 事务支持
 InnoDB  支持事务
 MyISAM  不支持事务
+
+4. 查看表磁盘 空间 
+select 
+	table_schema, 
+	concat(truncate(sum(data_length)/1024/1024, 2), 'MB') as data_size,
+	concat(truncate(sum(index_length)/1024/1024, 2), 'MB') as index_size
+from information_schema.tables
+group by table_schema
+order by sum(data_length) desc;

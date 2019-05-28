@@ -1,0 +1,13 @@
+nginx.conf
+1. 反向代理
+
+location {
+	root html;
+	index index.html index.htm
+	proxy_pass http://127.0.0.`:8080/;
+}
+
+location = /adproject {
+	root c:\Temp\...\dist;
+	index index.html indes.htm;
+}
