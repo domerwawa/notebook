@@ -30,3 +30,6 @@ C:\Users\Administrator\.ssh\id_rsa.pub复制到github上的ssh key去
 ssh -T git@github.com
 yes
 
+3。设置username usermail
+git config user.name "adams_zhou"
+git config user.email "xxx@gmail.com"
