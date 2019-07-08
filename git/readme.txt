@@ -18,3 +18,15 @@ git branch -r
 git checkout -b XXX origin/XXX
 10. 切换回branch master
 git checkout master
+
+2. 创建ssh key
+打开git bash
+测试本地有没有key
+cd ~/.ssh
+ssh-keygen -t rsa -C "your email"
+一路回车
+C:\Users\Administrator\.ssh\id_rsa.pub复制到github上的ssh key去
+测试连接
+ssh -T git@github.com
+yes
+

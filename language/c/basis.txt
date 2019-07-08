@@ -1,7 +1,7 @@
-1.Î£ÏÕµÄcº¯ÊıºÍÌæ´úº¯Êı
-gets		fgets		¶ÁÒ»ĞĞ
-getwd		getcwd		¶ÁÈ¡µ±Ç°Ä¿Â¼
-srcat		strncat		×Ö·û´®Á¬½Ó
-strcpy		strncpy		×Ö·û´®¸´ÖÆ
-sprintf		snprintf	×Ö·û´®¸ñÊ½»¯
-vsprintf	vsnprintf	×Ö·û´®¸ñÊ½»¯
+1.å±é™©çš„cå‡½æ•°å’Œæ›¿ä»£å‡½æ•°
+gets		fgets		è¯»ä¸€è¡Œ
+getwd		getcwd		è¯»å–å½“å‰ç›®å½•
+srcat		strncat		å­—ç¬¦ä¸²è¿æ¥
+strcpy		strncpy		å­—ç¬¦ä¸²å¤åˆ¶
+sprintf		snprintf	å­—ç¬¦ä¸²æ ¼å¼åŒ–
+vsprintf	vsnprintf	å­—ç¬¦ä¸²æ ¼å¼åŒ–
