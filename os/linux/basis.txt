@@ -63,6 +63,14 @@ pc集群(cluster)计算机群
 /home  独立
 /cluster/raid目录  大容量
 
+我的配置 1T硬盘
+/boot  1G
+swap   2G
+/      100G
+/opt   100G
+/usr   100G
+/home  剩下的
+
 6.基础操作
 date "+%Y/%m/%d %H:%M:%S"
 
@@ -208,4 +216,17 @@ cat /proc/cpuinfo |grep MHz|uniq
 cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
 查看cpu运行模式（32或64）
 getconf LONG_BIT
+
+27.winscp配置
+服务器端
+ubuntu18.04.02
+sudo apt-get autoremove openssh-client
+sudo apt-get install openssh-clinet openssh-server
+
+sudo vi /etc/ssh/sshd_config
+PasswordAuthentication yes
+PermitRootLogin yes
+
+sudo service ssh restart
+
 
