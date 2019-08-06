@@ -1,0 +1,10 @@
+设置映像
+/etc/docker/daemon.json
+{
+    "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}
+systemctl restart docker.service
+
+sudo docker pull nginx
+sudo docker pull tomee
+sudo docker pull postgres
