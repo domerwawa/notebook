@@ -1,4 +1,4 @@
-设置映像
+1. 设置映像
 /etc/docker/daemon.json
 {
     "registry-mirrors": ["http://hub-mirror.c.163.com"]
@@ -8,3 +8,27 @@ systemctl restart docker.service
 sudo docker pull nginx
 sudo docker pull tomee
 sudo docker pull postgres
+
+2。取得映像
+docker pull ubuntu:18.04
+
+3.列出本机映像
+docker images
+docker images --tree
+
+4.做新映像
+docker commit -m "xxx" -a "使用者信息" 映像id:tag
+
+
+
+
+
+
+列出容器使用情况
+动态
+docker stats
+静态
+docker stats --no-stream
+
+列出所有容器
+docker ps -a

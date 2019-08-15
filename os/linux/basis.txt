@@ -229,4 +229,6 @@ PermitRootLogin yes
 
 sudo service ssh restart
 
-
+28. ubuntu声卡
+sudo apt install pavucontrol
+pavucontrol  选默认声卡
