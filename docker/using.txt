@@ -20,15 +20,71 @@ docker images --tree
 docker commit -m "xxx" -a "使用者信息" 映像id:tag
 
 
+5.Dockerfile编译
+docker build -t XXX:tag .
+
+6.查看容器
+docker ps
+docker ps -a
+
+7.进入容器
+docker exec -it XXXXX /bin/bash
 
 
-
-
-列出容器使用情况
+8.列出容器使用情况
 动态
 docker stats
 静态
 docker stats --no-stream
 
-列出所有容器
+9.修改tag标签
+docker tag XXXXXX(image_id) XXX:tag
+
+10.导入本地映像
+cat XXX.tar.gz | docker import - ubuntu:18.04
+
+11.到处本地映像
+docker load --input ubuntu_18.04.tar
+docker load < ubuntu_18.04.tar
+
+12.导入映像档
+docker save -o ubuntu_18.04.tar unbuntu:18.04
+
+13.持久化容器
 docker ps -a
+docker export <容器_id> xxx.tar
+
+14.导入导出比较
+export-import 没有历史
+save-load     有历史
+
+15.删除
+容器
+docker rm XXXX
+映像
+docker rmi XXXX
+
+16.运行映像
+docker run -it --rm -v XXXX:XXXX --name -p XX:XX ubuntu18.04:XX /bin/bash
+docker run -d --rm ubuntu18.04:XX /bin/bash -c "while true;do echo hello world;sleep 1;done"
+-it     终端运行
+-d      后台运行
+--rm    结束时删除容器
+-v      共享目录
+--name  容器名字
+-p      映射端口
+
+17.docker compose
+启动
+docker-compose up
+后台启动
+docker-compose up -d
+停止
+docker-compose stop
+停止并卸载容器
+docker-compose down
+查看
+docker-compose ps
+docker-compose ps -a
+
+10.swarm

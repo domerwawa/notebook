@@ -11,3 +11,6 @@ location = /adproject {
 	root c:\Temp\...\dist;
 	index index.html indes.htm;
 }
+
+2.https证书（免费）
+https://letsencrypt.org
