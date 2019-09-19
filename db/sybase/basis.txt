@@ -1,8 +1,12 @@
-µ¼ÈëºÍµ¼³ö
-bcp Êı¾İ¿âÃû.ÓµÓĞÈË.tablename out "XXX.txt" -c -Jsjis -t"|" -UXXX -PXXX -SXXX -I XXX.ini
-iniÎÄ¼ş
+å¯¼å…¥å’Œå¯¼å‡º
+bcp æ•°æ®åº“å.æ‹¥æœ‰äºº.tablename out "XXX.txt" -c -Jsjis -t"|" -UXXX -PXXX -SXXX -I XXX.ini
+iniæ–‡ä»¶
 [servename]
-query=TCP, ÓòÃû, ¶Ë¿ÚÃû
+query=TCP, åŸŸå, ç«¯å£å
 
-bcp Êı¾İ¿âÃû.ÓµÓĞÈË.tablename in "XXX.txt" -c -Jsjis -Y -UXXX -PXXX -SXXX -I XXX.ini -f XXX.ctl
-ctlÎÄ¼şÊÇ¿ØÖÆÎÄ¼ş£¬ÁĞĞÅÏ¢£¬Áí¼ûbaidu
+bcp æ•°æ®åº“å.æ‹¥æœ‰äºº.tablename in "XXX.txt" -c -Jsjis -Y -UXXX -PXXX -SXXX -I XXX.ini -f XXX.ctl
+ctlæ–‡ä»¶æ˜¯æ§åˆ¶æ–‡ä»¶ï¼Œåˆ—ä¿¡æ¯ï¼Œå¦è§baidu
+
+åŠ è¡Œå·
+select rowid=identity(8), xx1, xx2 into #temptab from tab
+select rowid, xx1, xx2 from #temptab

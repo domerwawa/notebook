@@ -31,3 +31,10 @@ select
 from information_schema.tables
 group by table_schema
 order by sum(data_length) desc;
+
+5. 加行号
+Select (@rowNum:=@owNum+1) as rowNo, xx1, xx2
+from a,
+(Select (@rowNum:=0)) b
+order by a.xxx desc
+
