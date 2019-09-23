@@ -18,3 +18,16 @@ sc config postgresql start= auto
 sc start postgresql 
 
 sc delete postgresql
+
+
+4. uuid
+select replace(cast(uuid_generate_v4() as varchar), '-', '');
+
+5. 安装uuid模块
+CREATE ECTENSION "uuid-ossp";
+
+6. 查看安装过的模块
+select * from pg_extension;
+
+7. 查看可安装的模块
+select * from pg_available_extension;
