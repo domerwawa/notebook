@@ -47,8 +47,9 @@ cat XXX.tar.gz | docker import - ubuntu:18.04
 docker load --input ubuntu_18.04.tar
 docker load < ubuntu_18.04.tar
 
-12.导入映像档
-docker save -o ubuntu_18.04.tar unbuntu:18.04
+12.导出映像档
+docker save -o ubuntu_18.04.tar image_id
+docker export -o ubuntu_18.04.tar container_id
 
 13.持久化容器
 docker ps -a
