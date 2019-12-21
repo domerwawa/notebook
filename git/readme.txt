@@ -31,5 +31,10 @@ ssh -T git@github.com
 yes
 
 3。设置username usermail
-git config user.name "adams_zhou"
-git config user.email "xxx@gmail.com"
+git config --global user.name "adams_zhou"
+git config --global user.email "xxx@gmail.com"
+git config --list     列表
+git config user.name  显示名字
+
+4。设置远程项目库
+git remote set-url origin git@github.com:xxx.git
