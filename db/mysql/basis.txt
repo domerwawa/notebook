@@ -38,3 +38,13 @@ from a,
 (Select (@rowNum:=0)) b
 order by a.xxx desc
 
+6. 显示所有系统变量
+show variables like '%';
+
+7. 打开更新保护
+SET SQL_SAFE_UPDATES=0;
+show variables like 'sql_safe_updates'; 或 select @@sql_safe_updates
+@@表示全局变量
+
+
+
