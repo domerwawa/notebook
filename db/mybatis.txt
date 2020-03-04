@@ -1,0 +1,6 @@
+1. 入参是字符串数组  String[] locationIds
+XXX in
+<foreach collection="locationIds" item="locationId" index="index"
+  open="(" close=")" seperator=",">
+  #{locationId}
+</foreach>
