@@ -46,5 +46,9 @@ SET SQL_SAFE_UPDATES=0;
 show variables like 'sql_safe_updates'; 或 select @@sql_safe_updates
 @@表示全局变量
 
+8. 设置timezone
+select @@global.time_zone;
+set global time_zone = '+8:00';
+flush privileges;
 
 
