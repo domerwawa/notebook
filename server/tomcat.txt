@@ -2,3 +2,6 @@
 conf/server.xml中添加
 <Host appBase="/home/XXX/images" path="/static" />
 
+2. ddl版本
+http://archive.apache.org/dist/tomcat/tomcat-connectors/native/
+需要替换一个tcnative-1.dll，此文件在C:\Windows\System32下
