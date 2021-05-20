@@ -157,3 +157,87 @@ public class Waitress{
 	}
 }
 
+2.装饰器模式
+public interface TheGreatestSage {
+    public void move();
+}
+public class Monkey implements TheGreatestSage {
+    @Override
+    public void move() {
+        System.out.println("Monkey move");
+    }
+}
+public class Decorator implements TheGreatestSage {
+    private TheGreatestSage sage;
+    
+    public Decorator(TheGreatestSage sage) {
+        this.sage = sage;
+    }
+    @Override
+    public void move() {
+        this.sage.move();
+    }
+}
+
+public class Fish extends Decorator {
+    public Fish(TheGreatestSage sage) {
+        super(sage);
+    }
+    
+    @Override
+    public void move() {
+        super.move();
+        System.out.println("Change fish move");
+    }
+}
+public class Bird extends Decorator {
+    public Bird(TheGreatestSage sage) {
+        super(sage);
+    }
+    
+    @Override
+    public void move() {
+        super.move();
+        System.out.println("Change bird move");
+    }
+}
+public class Client {
+    public static void main(String[] args) {
+        TheGreatestSage sage = new Monkey();
+        //第一种写法
+        TheGreatestSage bird = new Bird(sage);
+        bird.move();
+        
+        //第二种写法
+        TheGreatestSage fish = new Fish(new Bird(sage));
+        fish.move();
+    }
+}
+
+装饰器模式简化
+public interface TheGreatestSage {
+    public void move();
+}
+public class Monkey implements TheGreatestSage {
+    @Override
+    public void move() {
+        System.out.println("Monkey move");
+    }
+}
+public class FishDecorator implements TheGreatestSage {
+    private TheGreatestSage sage;
+    public FishDecorator(TheGreatestSage sage) {
+        this.sage = sage;
+    }
+    
+    @Override
+    public void move() {
+        this.sage.move()
+    }
+}
+public class Client {
+    public static void main(String[] args) {
+        TheGreatestSage fish = new FishDecorator(new Monkey());
+        fish.move();
+    }
+}
