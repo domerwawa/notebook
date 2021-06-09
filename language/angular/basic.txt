@@ -1,3 +1,7 @@
 1.安装node-sass
 npm unintall node-sass
 npm i --save node-sass --ssa_binary_site=http://npm.taobao.org/mirrors/node-saas/
+
+2.angular12打开IE11支持
+.browserslistrc中not IE11去掉not
+.tsconfigl.json中 "target":"es5"
