@@ -1,20 +1,20 @@
-1.java×Ö·û´®
-//Çó×Ö·û´®³¤¶È
+1.javaå­—ç¬¦ä¸²
+//æ±‚å­—ç¬¦ä¸²é•¿åº¦
 void length(String s){
-	//»ùÓÚcharÇó×Ö·û´®³¤¶È
+	//åŸºäºcharæ±‚å­—ç¬¦ä¸²é•¿åº¦
 	System.out.printf("char len=%d\n", s.length());
-	//»ùÓÚcodepointÇó×Ö·û´®³¤¶È
+	//åŸºäºcodepointæ±‚å­—ç¬¦ä¸²é•¿åº¦
 	System.out.printf("codepoint len=%d\n", s.codePointCount(0, s.length()));
 }
 
-//°´ÎÄ×ÖÑ­»·
+//æŒ‰æ–‡å­—å¾ªç¯
 void iterTest(String s){
-	//»ùÓÚcharÇó×Ö·û´®Ñ­»·
+	//åŸºäºcharæ±‚å­—ç¬¦ä¸²å¾ªç¯
 	for(int charIndex=0; charIndex<s.length(); charIndex++){
 		int c = s.charAt(charIndex);
 		Sysem.out.printf("%x\n", c);
 	}
-	//»ùÓÚcodepointÇó×Ö·û´®Ñ­»·
+	//åŸºäºcodepointæ±‚å­—ç¬¦ä¸²å¾ªç¯
 	for(int codeIndex=0; codeIndex<s.length();){
 		int c = s.codePointAt(charIndex);
 		Sysem.out.printf("%x\n", c);
@@ -22,109 +22,109 @@ void iterTest(String s){
 	}
 }
 
-2.ÅĞ¶ÏÊı×Ö
+2.åˆ¤æ–­æ•°å­—
 if (Double.isNan(x))
 
-3.n¸öÊı×ÖÖĞ³éÈ¡k¸öÊı×Ö
+3.nä¸ªæ•°å­—ä¸­æŠ½å–kä¸ªæ•°å­—
  n*(n-1)*(n-2)*...*(n-k+1)/1*2*3*...*k
 int lotteryOdds = 1;
 for (int i=1; i<=k ;i++){
 	lotteryOdds = ltteryOdds * (n - i + 1)/i;
 }
 
-4.UML¿ªÔ´¹¤¾ß
+4.UMLå¼€æºå·¥å…·
 ArgoUML(http://argouml.tigris.org)
 
-5.ÈÕÆÚÀà
+5.æ—¥æœŸç±»
 GregorianCalendar
 DateFormataSymbols
 SimpleDateFormat
 
-6.jarÎÄ¼ş
+6.jaræ–‡ä»¶
 jar cvf file1 file2
 jar cfm **.jar manifest.mf **/**/**/*.class
-¸üĞÂÒÑÓĞµÄjarÎÄ¼şÇåµ¥
+æ›´æ–°å·²æœ‰çš„jaræ–‡ä»¶æ¸…å•
 jar ufm **.jar manifest-additions.mf
 
-¿ÉÖ´ĞĞjarÎÄ¼ş
+å¯æ‰§è¡Œjaræ–‡ä»¶
 jar cvfe **.jar **.**.**
-mfÎÄ¼şÖĞÌí¼ÓMain-Class: **.**.**
+mfæ–‡ä»¶ä¸­æ·»åŠ Main-Class: **.**.**
 jar cvfm **.jr mainclass.mf
 
-7.ÇĞ¸î×Ö·û´®
+7.åˆ‡å‰²å­—ç¬¦ä¸²
 split(String regex, int limit)
-limit>0	±íÊ¾Êı×é¿ÉÒÔÇĞlimit¸ö£¬¶à³öÀ´µÄÈ«²¿¹éµ½Êı×é×îºóÒ»Î»
-limit=0	Êı×é³¤¶ÈÎŞÏŞÖÆ£¬×îºó¿Õ×Ö·ûÊ¡ÂÔ
-limit<0 Êı×é³¤¶ÈÎŞÏŞÖÆ£¬²»Ê¡ÂÔ×îºóµÄ¿Õ×Ö·û
+limit>0	è¡¨ç¤ºæ•°ç»„å¯ä»¥åˆ‡limitä¸ªï¼Œå¤šå‡ºæ¥çš„å…¨éƒ¨å½’åˆ°æ•°ç»„æœ€åä¸€ä½
+limit=0	æ•°ç»„é•¿åº¦æ— é™åˆ¶ï¼Œæœ€åç©ºå­—ç¬¦çœç•¥
+limit<0 æ•°ç»„é•¿åº¦æ— é™åˆ¶ï¼Œä¸çœç•¥æœ€åçš„ç©ºå­—ç¬¦
 split(String regex)=split(regex, 0)
 
-8.×Ö·û»º´æ
-StringBuffer	¶àÏß³Ì	xml½âÎö£¬HTTP²ÎÊı½âÎöºÍ·â×°
-StringBuilder	µ¥Ïß³Ì	ÈçSQLÓï¾äµÄÆ´×°£¬JSON·â×°µÈ
+8.å­—ç¬¦ç¼“å­˜
+StringBuffer	å¤šçº¿ç¨‹	xmlè§£æï¼ŒHTTPå‚æ•°è§£æå’Œå°è£…
+StringBuilder	å•çº¿ç¨‹	å¦‚SQLè¯­å¥çš„æ‹¼è£…ï¼ŒJSONå°è£…ç­‰
 
-9.ÅĞ¶Ïµ¥´ÊÊıÁ¿
+9.åˆ¤æ–­å•è¯æ•°é‡
 Pattern pattern = Pattern.compile("\\b\\w+\\b");
 Matcher matcher = pattern.matcher(str);
 while(matcher.find()){
 	***
 }
 
-10.ÖĞÎÄÅÅĞò
-String[] strs = {"ÕÅÈı","ÀîËÄ","ÍõÎå"}£»
+10.ä¸­æ–‡æ’åº
+String[] strs = {"å¼ ä¸‰","æå››","ç‹äº”"}ï¼›
 Comparator c = Collator.getInstance(Local.CHINA);
 Arrays.sort(strs, c);
 for(String str : strs){
 	System.out.println(str);
 }
 
-11.Å¼ÊıÅĞ¶Ï
-i%2==1?"ÆæÊı":"Å¼Êı"	error
-i%2==0?"Å¼Êı":"ÆæÊı"	correct
+11.å¶æ•°åˆ¤æ–­
+i%2==1?"å¥‡æ•°":"å¶æ•°"	error
+i%2==0?"å¶æ•°":"å¥‡æ•°"	correct
 
-12.ÒøĞĞ¼ÒËã·¨
+12.é“¶è¡Œå®¶ç®—æ³•
 RoundingMode.HALF_EVEN
 
-13.²»ÒªÉèÖÃËæ»úÊıµÄÖÖ×Ó
+13.ä¸è¦è®¾ç½®éšæœºæ•°çš„ç§å­
 
-14.ÈÃ¹¤¾ßÀà²»¿ÉÊµÀı»¯
-private ¹¹Ôìº¯Êı(){
-	throw new Error("²»ÒªÊµÀı»¯ÎÒ£¡");
+14.è®©å·¥å…·ç±»ä¸å¯å®ä¾‹åŒ–
+private æ„é€ å‡½æ•°(){
+	throw new Error("ä¸è¦å®ä¾‹åŒ–æˆ‘ï¼");
 }
 
-15.È¡µÚ¶ş´óÖµ
+15.å–ç¬¬äºŒå¤§å€¼
 public static int getSecond(Integer[] data){
 	List<Integer> dataList = Arrays.asList(data);
 	TreeSet<Integer> ts = new TreeSet<Integer>(dataList);
 	return ts.lower(ts.last());
 }
 
-16.List×ªArray
-Arrays.asList(List);	»ù±¾ÀàĞÍµÄÊı×é²»ÄÜÓÃ
-asList·½·¨²úÉúµÄList¶ÔÏó²»¿É¸Ä±ä
+16.Listè½¬Array
+Arrays.asList(List);	åŸºæœ¬ç±»å‹çš„æ•°ç»„ä¸èƒ½ç”¨
+asListæ–¹æ³•äº§ç”Ÿçš„Listå¯¹è±¡ä¸å¯æ”¹å˜
 
-17.±éÀúĞ§ÂÊ
+17.éå†æ•ˆç‡
 int sum = 0;
 
 if (list instanceof RandomAccess){
-	//Ëæ»ú´æÈ¡ÈçList
+	//éšæœºå­˜å–å¦‚List
 	for (int i=0, size=list.size();i<size;i++){
 		sum += list.get(i);
 	}
-}else{//ÓĞĞò´æÈ¡£¬ÈçLinkedList
+}else{//æœ‰åºå­˜å–ï¼Œå¦‚LinkedList
 	for (int i : list){
 		sum += i;
 	}	
 }
 
-18.Æµ·±²åÈëºÍÉ¾³ıÊ±Ê¹ÓÃLinkedList
+18.é¢‘ç¹æ’å…¥å’Œåˆ é™¤æ—¶ä½¿ç”¨LinkedList
 
-19.List.subListÖ»ÊÇÔ­ÁĞ±íµÄÒ»¸öÊÓÍ¼£¬ËùÓĞµÄĞŞ¸ÄÖ±½Ó×÷ÓÃÓÚÔ­ÁĞ±í
+19.List.subListåªæ˜¯åŸåˆ—è¡¨çš„ä¸€ä¸ªè§†å›¾ï¼Œæ‰€æœ‰çš„ä¿®æ”¹ç›´æ¥ä½œç”¨äºåŸåˆ—è¡¨
 
-20.Çå³ı¾Ö²¿ÁĞ±í
+20.æ¸…é™¤å±€éƒ¨åˆ—è¡¨
 list.subList(20,30).clear();
 
-21.ÅÅĞò
-Ê¹ÓÃComparatorÅÅĞò
+21.æ’åº
+ä½¿ç”¨Comparatoræ’åº
 class Employee implements Comparable<Employee>{
 	....
 	....
@@ -135,64 +135,64 @@ class Employee implements Comparable<Employee>{
 	}
 }
 
-22.Ê¹ÓÃbinarySearchÇ°ÏÈÒªÅÅĞò
+22.ä½¿ç”¨binarySearchå‰å…ˆè¦æ’åº
 
-23.¼¯ºÏ²Ù×÷
-(1)²¢¼¯
+23.é›†åˆæ“ä½œ
+(1)å¹¶é›†
 addAll(list)
-(2)½»¼¯
+(2)äº¤é›†
 retainAll(list)
-(3)²î¼¯
+(3)å·®é›†
 removeAll(list)
-(4)ÎŞÖØ¸´µÄ²¢¼¯
+(4)æ— é‡å¤çš„å¹¶é›†
 list2.removeAll(list1)
 list1.addAll(list2)
 
-24.List½»»»
+24.Listäº¤æ¢
 Collections.swap(list, i, j);
 
-25.´òÂÒÁĞ±í
+25.æ‰“ä¹±åˆ—è¡¨
 Collections.shuffle(list)
 
-26.¾¡Á¿ÈÃHashMapÖĞµÄÔªËØÉÙÁ¿²¢¼òµ¥
+26.å°½é‡è®©HashMapä¸­çš„å…ƒç´ å°‘é‡å¹¶ç®€å•
 
-27.¶àÏß³ÌÊ¹ÓÃVector»òHashTable
+27.å¤šçº¿ç¨‹ä½¿ç”¨Vectoræˆ–HashTable
 
-28.JodaÈÕÆÚÊ±¼äÀ©Õ¹°ü
-(1)±¾µØ¸ñÊ½µÄÈÕÆÚÊ±¼ä
+28.Jodaæ—¥æœŸæ—¶é—´æ‰©å±•åŒ…
+(1)æœ¬åœ°æ ¼å¼çš„æ—¥æœŸæ—¶é—´
 DateTime dt = new DataTime();
-dt.dayofWeek().getAsText(Local.ENGLISTH);//Ó¢ÓïĞÇÆÚ¼¸
-dt.toLocalDate();//±¾µØÈÕÆÚ¸ñÊ½
-dt.toString(DateTimeFormat.forPattern("yyyyÄêMÔÂdÈÕ"));
+dt.dayofWeek().getAsText(Local.ENGLISTH);//è‹±è¯­æ˜ŸæœŸå‡ 
+dt.toLocalDate();//æœ¬åœ°æ—¥æœŸæ ¼å¼
+dt.toString(DateTimeFormat.forPattern("yyyyå¹´Mæœˆdæ—¥"));
 
 (2)
-DateTime dt = new DateTime();//DateTimeÊÇ²»¿É±äÀàĞÍ
-dt.plusHours(100).dayofWeek();//¼Ó100Ğ¡Ê±ÊÇĞÇÆÚ¼¸
-dt.plusDays(100).toLocalDate();//¼Ó100Ìì
-dt.minusYears(10).dayofWeek().getAsText();//¼õ10Äê
-Hours.hourBetween(dt, new DataTime("2012-12-21")).getHours();//Àë2012-12-21¼¸Ğ¡Ê±
+DateTime dt = new DateTime();//DateTimeæ˜¯ä¸å¯å˜ç±»å‹
+dt.plusHours(100).dayofWeek();//åŠ 100å°æ—¶æ˜¯æ˜ŸæœŸå‡ 
+dt.plusDays(100).toLocalDate();//åŠ 100å¤©
+dt.minusYears(10).dayofWeek().getAsText();//å‡10å¹´
+Hours.hourBetween(dt, new DataTime("2012-12-21")).getHours();//ç¦»2012-12-21å‡ å°æ—¶
 
-//µ±Ç°¿É±äÊ±¼ä
+//å½“å‰å¯å˜æ—¶é—´
 MutableDateTime mdt = new MutableDateTime();
 DateTime destDateTime = dt.plusYears(10);
 while (mdt.isBefore(destDateTime)){
 	mdt.addDays(1);
 	if (mdt.getDayOfMonth()==13 && mdt.getDayOfWeek()==5){
-		System.out.println("ºÚÉ«ĞÇÆÚÎå:" + mdt);
+		System.out.println("é»‘è‰²æ˜ŸæœŸäº”:" + mdt);
 	}
 }
 
-(3)Ê±ÇøÊ±¼ä
+(3)æ—¶åŒºæ—¶é—´
 DateTime dt = new DateTime();
 dt.withZone(DateTimeZone.forID("Europe/London"));
-dt.withZone(DateTimeZone.UTC);//±ê×¼Ê±¼ä
+dt.withZone(DateTimeZone.UTC);//æ ‡å‡†æ—¶é—´
 
-ÓëJDK Date×ª»»
+ä¸JDK Dateè½¬æ¢
 DateTime dt = new DateTime();
 Date jdkDate = dt.toDate();
 dt = new DateTime(jkdDate);
 
-29.ĞòÁĞ»¯sample
+29.åºåˆ—åŒ–sample
 import java.io.*;
 public class SerializationUitils{
 	private static String File_NAME = "d:/temp/obj.bin";
@@ -216,12 +216,12 @@ public class SerializationUitils{
 		return obj;
 	}
 }
-ĞèÒªĞòÁĞ»¯µÄÀà±ØĞëimplements Serializable,²¢Éú³ÉserialVersionUID
+éœ€è¦åºåˆ—åŒ–çš„ç±»å¿…é¡»implements Serializable,å¹¶ç”ŸæˆserialVersionUID
 
-30.ÀûÓÃĞòÁĞ»¯ÊµÏÖ¶ÔÏóÉî²ã¿½±´
+30.åˆ©ç”¨åºåˆ—åŒ–å®ç°å¯¹è±¡æ·±å±‚æ‹·è´
 import java.io.*;
 public class CloneUtils{
-	//¿½±´¶ÔÏó±ØĞëÊµÏÖĞòÁĞ½Ó¿Ú
+	//æ‹·è´å¯¹è±¡å¿…é¡»å®ç°åºåˆ—æ¥å£
 	public static <T exends Serializable>T clone(T obj){
 		T clonedObj = null;
 		try{
@@ -241,7 +241,7 @@ public class CloneUtils{
 	}
 }
 
-31.javaµ÷ÓÃJS
+31.javaè°ƒç”¨JS
 ScriptEngine engine = new ScriptEngine Manager().getEngineByName("javascript");
 Bindins bind = engine.createBindings();
 bind.put("factor", 1);
@@ -258,9 +258,46 @@ function formula(var1, var2){
 	return var1 + var2 - factor;
 }
 
-32.±¾µØ»¯
+32.æœ¬åœ°åŒ–
 native2ascii -encoding Shift-Jis XXX.properties XXXX.properties
 
+33. springbootç›´æ¥è¿è¡Œï¼Œä¸åšwebåº”ç”¨
+ApplicationContext applicationContext = SpringApplication.run(XX.class, args);
+TestService testService = (TestService)applicationContext.getBean("testService");
+testService.xxxx();
+
+34.Aopæ‹¦æˆªæ–¹æ³•, æ‹¦æˆªä¸åˆ°è‡ªè°ƒç”¨æ–¹æ³•ã€‚
+pom.xml
+spring-boot-starter-aop
+
+@Aspect
+@Component
+public class InterceptorTest {
+	private Logger logger = LoggerFactory.getLogger(InterceptorTest.class);
+	@Pointcut("@within(org.springframework.stereotype.Service) || @within(org.springframework.stereotype.Component)") //æ‹¦æˆªæ ‡ç­¾
+	private void logAdvicePointcut() {}
+	
+	@Pointcut("execution(public * aop..*.* (..))") //æ‹¦æˆªaopåŒ…ä¸‹publicæ–¹æ³•
+	private void anyPublicMethod() {}
+	
+	@Pointcut("execution(* aop..*.* (..))") //æ‹¦æˆªaopåŒ…ä¸‹æ‰€æœ‰æ–¹æ³•
+	private void anyMethod() {}
+	
+	@Before("anyMethod()")
+	public void beforeLog(JoinPoint point) {
+		logger.info(this.printMethod(point) + "start");
+	}
+	@After("anyMethod()")
+	public void beforeLog(JoinPoint point) {
+		logger.info(this.printMethod(point) + "end");
+	}
+	
+	private Setirn printMethod(JoinPoint point) { 
+		String className = point.getTarget().getClass().getName();
+		String methodName = point.getSignature().getName();
+		return className + "." + methodName;
+	}
+}
 
 
 
