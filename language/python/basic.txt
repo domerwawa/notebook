@@ -9,3 +9,62 @@ congda环境安装软件包
 pip install package_name
 方法2
 c:/ProgramData/Continuum/Anaconda/Scripts/conda.exe install --name env_name package_name -y
+
+1. py调api带附件
+import requests, json
+url='xxx'
+headers = {
+    "x-symphony-service": "xxx",
+    "Authorization": "Basic xxx"
+}
+data= {
+    "summary": "this is a test",
+    "link": json.dumps([{"name": "111", "url": "https://xxx"}])
+}
+'''
+data= {
+    "summary": "this is a test",
+    "link": "[{\"name\": \"111\", \"url\": \"https://xxx\"}]"
+}
+'''
+with open("c:\Temp\111.png", 'rb') as attachment_file:
+    multipart_form_data = {"attachment": ("111.pn", attachment_file)}
+    response = requests.post(url, headers=headers, file=multipart_form_data, data=data)
+    if response.status_code != 200:
+        print("Status:", response.status_code, "Headers:", response.headers)
+        exit()
+    print("Headers:", response.headers)
+    print(response)
+  
+2. 读取word文件
+test_word.py
+pip install docx
+https://python-docx.readthedocs.io/en/latest/#
+
+from docx import Document
+file = Document("c:\\Temp\\xxx.docx")
+#header
+header = file.sections[0].header
+for i in range(len(header.paragraphs)):
+    print("第" + str(i) + "段落的内容是：" + header.paragraphs[i].text)
+
+#段落内容
+print("段落数：" + str(len(file.paragraphs)))
+for para in file.paragraphs:
+    print(para.text)
+
+#输出段落号及段落内容
+for i in range(len(file.paragraphs)):
+    print("第" + str(i) + "段落的内容是：" + file.paragraphs[i].text)
+    
+#word里读取表格内容
+for n in range(len(file.tables)):
+    table = file.tables[n]
+    for i in range(0, len(table.rows)):
+        row = table.rows
+        for j in range(0, len(table.columns)):
+            cell = table.cell(i, j)
+            print(f"单元格((i),(j))的值为：{cell.text}\n")
+        
+    
+
