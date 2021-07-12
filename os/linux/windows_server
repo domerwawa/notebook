@@ -1,0 +1,12 @@
+1. create Windows task scheduler
+Computer Manager-System Tools-TaskScheduler-Create Basic Task
+Triger: 时间
+Action: 选程序
+Finish: 勾上显示属性窗口
+
+如果勾选Run whether use is logged on or not 出现2147943712 error解决方法如下
+方法1
+Local Security Policy-Local Policies-Security Options-Network access Do not allows storage of passwords and credentials for network改成Enabled
+方法2
+注册表
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa  disabledomaincreds 改成 0
