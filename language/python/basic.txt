@@ -67,4 +67,12 @@ for n in range(len(file.tables)):
             print(f"单元格((i),(j))的值为：{cell.text}\n")
         
     
+3. base64编码解码
+test_base64.py
+message = b'username:password'
+meeeage_encode = baseb64.b64encode(message)
+print(message_encode)
+
+message_decode = base64.b64decode(message_encode)
+print(message_decode)
 
