@@ -76,3 +76,12 @@ print(message_encode)
 message_decode = base64.b64decode(message_encode)
 print(message_decode)
 
+4. 时间相减格式化
+import datetime
+today = datetime.date.today()
+seven_day = datetime.timedelta(days=7)
+start_day = today - seven_day
+format = "%Y/%m/%d"
+start_day_format = start_day.strftime(format)
+today_format = today.strftime(format)
+
