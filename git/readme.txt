@@ -30,11 +30,23 @@ C:\Users\Administrator\.ssh\id_rsa.pub复制到github上的ssh key去
 ssh -T git@github.com
 yes
 
-3。设置username usermail
+3. 设置username usermail
 git config --global user.name "adams_zhou"
 git config --global user.email "xxx@gmail.com"
 git config --list     列表
 git config user.name  显示名字
 
-4。设置远程项目库
+4. 设置远程项目库
 git remote set-url origin git@github.com:xxx.git
+
+5. 提交时改变换行符
+git config --global core.autocrlf true   上传LF,下载变回CRLF
+git config --global core.autocrlf input   上传LF,下载不变
+git config --global core.autocrlf false   都不变
+或.gitconfig
+[core]
+  autocrlf = input
+多个项目时也可在项目目录单独配置，不陪全局
+git config --global core.autocrlf true
+
+git config --global core.autocrlf input
