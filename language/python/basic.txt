@@ -85,3 +85,15 @@ format = "%Y/%m/%d"
 start_day_format = start_day.strftime(format)
 today_format = today.strftime(format)
 
+5. 虚拟环境
+Python -m venv pyenv
+
+6. 连接私服
+c:\User\XXX\pip\pip.ini
+[global]
+timeout=60
+trusted-host=pypi.nomura.com
+index=***
+index-url=***
+desable-pip-version-check=true
+
