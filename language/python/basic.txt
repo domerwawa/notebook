@@ -87,6 +87,7 @@ today_format = today.strftime(format)
 
 5. 虚拟环境
 Python -m venv pyenv
+不能改变python版本
 
 6. 连接私服
 c:\User\XXX\pip\pip.ini
