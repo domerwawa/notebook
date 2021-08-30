@@ -1,0 +1,352 @@
+﻿gradle 7.2
+
+环境变量
+GRADLE_HOME
+GRADLE_USER_HOME  放wrap的目录
+
+mkdir myproject
+cd myproject
+$ gradle init
+
+Select type of project to generate:
+  1: basic
+  2: application
+  3: library
+  4: Gradle plugin
+Enter selection (default: basic) [1..4] 2
+
+Select implementation language:
+  1: C++
+  2: Groovy
+  3: Java
+  4: Kotlin
+  5: Scala
+  6: Swift
+Enter selection (default: Java) [1..6] 3
+
+Select build script DSL:
+  1: Groovy
+  2: Kotlin
+Enter selection (default: Groovy) [1..2] 1
+
+Select test framework:
+  1: JUnit 4
+  2: TestNG
+  3: Spock
+  4: JUnit Jupiter
+Enter selection (default: JUnit 4) [1..4]
+
+Project name (default: demo):
+Source package (default: demo):
+
+
+BUILD SUCCESSFUL
+2 actionable tasks: 2 executed
+
+cd app
+编辑build.gradle
+//这块私服需要,不能上外网
+buildScript {
+     repositories {
+         mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.5.4'
+    }
+}
+
+//官方的用plugins，非官方或不能上网只能用私服的用apply plugin
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'java'
+    id 'eclipse'
+}
+
+group = 'com.adams.myproject'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_11
+//sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral() 
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compileOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform() 
+}
+// gradlew bootrun -P env=int
+bootRun {
+    // devtools watch resource files
+    sourceResources sourceSets.main
+    
+    if (!project.hasProperty("env")){
+        print("not set property env")
+        args = ["--spring.profiles.active=pc"]
+        print("now env is: pc")
+    } else {
+        args = ["--spring.profiles.active=" + env]
+        print("now env is: " + env)
+    }
+}
+
+task copyConfigFile(type: Copy) {
+    delete "$buildDir\\libs\\config"
+    from('src/main/resources'){
+        include '**/*.yml'
+    }
+    into 'build/libs/config'
+}
+
+// java -jar -Dspring.profiles.active=int ****.jar
+bootyJar {
+    dependsOn copyConfigFile
+    excludes = ["*.yml"]
+}
+
+tasks.register("taskY"){ 
+    println("hello taskY!") 
+}
+
+tasks.register("taskX"){ 
+    // dependsOn taskY  需要先声明taksY
+    dependsOn 'taskY'   // 无需先声明taksY
+    doFrist { 
+        println("frist!") 
+    } 
+    println("hello taskX!") 
+    doLast { 
+        println("last") 
+    } 
+} 
+
+目录
+entity  repository  service  controller
+
+Application.java
+package com.adams.myproject;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+    
+    //这里会和springboot一起运行
+    @Bean
+    public CommandLineRunner demo(CustomerRepository repository) {
+      return (args) -> {
+          // save a few customers
+          repository.save(new Customer("Jack", "Bauer"));
+          repository.save(new Customer("Chloe", "O'Brian"));
+          repository.save(new Customer("Kim", "Bauer"));
+          repository.save(new Customer("David", "Palmer"));
+          repository.save(new Customer("Michelle", "Dessler"));
+
+          // fetch all customers
+          log.info("Customers found with findAll():");
+          log.info("-------------------------------");
+          for (Customer customer : repository.findAll()) {
+            log.info(customer.toString());
+          }
+          log.info("");
+
+          // fetch an individual customer by ID
+          Customer customer = repository.findById(1L);
+          log.info("Customer found with findById(1L):");
+          log.info("--------------------------------");
+          log.info(customer.toString());
+          log.info("");
+
+          // fetch customers by last name
+          log.info("Customer found with findByLastName('Bauer'):");
+          log.info("--------------------------------------------");
+          repository.findByLastName("Bauer").forEach(bauer -> {
+            log.info(bauer.toString());
+          });
+          // for (Customer bauer : repository.findByLastName("Bauer")) {
+          //  log.info(bauer.toString());
+          // }
+          log.info("");
+        };
+    }
+}
+
+Entity
+package com.example.accessingdatajpa;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Customer {
+
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private Long id;
+  private String firstName;
+  private String lastName;
+
+  protected Customer() {}
+
+  public Customer(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  @Override
+  public String toString() {
+    return String.format(
+        "Customer[id=%d, firstName='%s', lastName='%s']",
+        id, firstName, lastName);
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+}
+
+Repository
+package com.example.accessingdatajpa;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
+
+  List<Customer> findByLastName(String lastName);
+
+  Customer findById(long id);
+}
+
+application.yml
+spring:
+    profiles:
+        active: pc
+    http:
+        encoding:
+            charset: UTF-8
+
+application-pc.yml
+server:
+    servlet:
+        context-path: /myproject_pc
+log:
+    path: c:\\Temp\\logs\\myproject_pc
+spring:
+    jpa:
+        hibernate:
+            
+        show-sql: true
+    datasource:
+        url: jdbc:mysql://XXXX?characterEncoding=utf-8&useSSL=true
+        username: ***
+        password: ***
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        
+        
+application-int.yml 同上
+application-stg.yml 同上
+application-uat.yml 同上
+application-prod.yml 同上
+
+logback-spring.xml
+<!xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <springProperty scope="context" name="log-path" source="log.path" />
+    
+    <!-- web -->
+    <logger name="org.springframework.web" level="INFO" />
+    
+    <!-- hibername -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="org.hibernate.enginer.QueryParameters" level="DEBUG" />
+    <logger name="org.hibernate.enginer.query.HQLQueryPlan" level="DEBUG" />
+    
+    <!-- app -->
+    <logger name="com.adams.myproject" level="DEBUG" />
+    
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <property name="LOG_PATH" value="${log-path}" />
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}-%d{yyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10 MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss SSSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="asyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>500</queueSize>
+        <appender-ref ref="FILE" />
+    </appender>
+    
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="asyncFileAppender" />
+        </root>
+    </springProfile>
+    
+    <springProfile name="pc | int | uat">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="asyncFileAppender" />
+        </root>
+    </springProfile>
+    
+    <springProfile name="!prod">
+        <!-- configuration to be enabled when the "production" profiles is not active -->
+    </springProfile>
+    
+</configuration>
+
+
+test用junit5
+ApplicationTest.java 
+@SpringBootTest 略
+
+运行springboot
+gradlew bootrun
+
+cd app
+gradle eclipse
+导入到eclipse里去，devtools的热部署需要在eclipse里直接运行Application.java程序
+
+
