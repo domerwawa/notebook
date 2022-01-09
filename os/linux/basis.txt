@@ -241,4 +241,5 @@ open
 sudo systemctl set-default graphical.target
 sudo reboot
 
-
+30.ubuntu18.04升级引起卡在开机画面
+使用vim 编辑/etc/gdm3/custom.conf文件，将#WaylandEnable=false，注释取消，保存退出并重启即可。
