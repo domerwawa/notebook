@@ -35,6 +35,8 @@ ssl_verify: true
 show_channel_urls: true
 
 conda create -n env_name python=3.9
+离线创建
+conda create -n env_name python=3.9 --offline
 conda activate env_name
 conda deactivate env_name
 conda remove -n env_name --all
@@ -132,3 +134,7 @@ trusted-host=pypi.nomura.com
 index=***
 index-url=***
 desable-pip-version-check=true
+
+7.Jupyter
+conda install -c conda-forge jupyterlab
+jupyter-lab
