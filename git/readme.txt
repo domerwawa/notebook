@@ -48,5 +48,14 @@ git config --global core.autocrlf false   都不变
   autocrlf = input
 多个项目时也可在项目目录单独配置，不陪全局
 git config --global core.autocrlf true
-
 git config --global core.autocrlf input
+
+6.清除用户名密码
+git config --system --unset credential.helper
+查看
+git config user.name
+git config user.email
+修改
+git config --global user.name "XXX"
+git config --global user.email "XXX"
+git config --global user.password "XXX"
