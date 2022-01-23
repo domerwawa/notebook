@@ -1,0 +1,2 @@
+1. 上传包到私服nexus需要密码
+pom.xml 里distributionManagement的id要对应settings.xml的servers-server-id
