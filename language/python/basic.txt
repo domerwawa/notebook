@@ -2,13 +2,11 @@ conda配置
 conda config --show channels 显示现有channels
 conda config --set show_channel_urls yes  意思是从channel中安装包时显示channel的url，这样就可以知道包的安装来源了。
 # 中科大镜像源
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/
 # 北京外国语大学源
 conda config --add channels  https://mirrors.bfsu.edu.cn/anaconda/pkgs/main
 conda config --add channels  https://mirrors.bfsu.edu.cn/anaconda/pkgs/free
@@ -24,19 +22,19 @@ conda config --add channels  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/
 
 其实就是.condarc文件
 channels:
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
   - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
   - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
   - defaults
 ssl_verify: true
 show_channel_urls: true
 
-conda create -n env_name python=3.9
+conda create -n env_name python=3.8
+注：win7只支持到3.8
 离线创建
-conda create -n env_name python=3.9 --offline
+conda create -n env_name python=3.8 --offline
 conda activate env_name
 conda deactivate env_name
 conda remove -n env_name --all
