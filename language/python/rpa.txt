@@ -1,0 +1,16 @@
+pywinauto
+
+from pywinauto.application import Application
+from pywinauto import Desktop
+
+# 处理安装软件
+app = Application(packend="uia").start(r'c:\xxxx\xxx.exe')
+app.xxx.xxx.click()
+
+# 处理绿色版软件
+Application(packend="uia").start(r'c:\xxxx\xxx.exe')
+app = Desktop(backend="uia").window(title_re="xxx")
+app.menu_select("File -> New")
+app.menu_select("File -> Save As...")
+
+app.kill()
